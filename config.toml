@@ -1,3 +1,4 @@
 baseURL = "https://kube-router.io/"
 languageCode = "en-us"
 title = "kube-router"
+theme = "beautifulhugo"
