@@ -3,7 +3,7 @@ backend:
   repo: cloudnativelabs/kube-router.io # Path to your Github repository
   branch: master # Branch to update
 
-publish_mode: editorial_workflow
+# publish_mode: editorial_workflow
 
 media_folder: "static/img/uploads" # Media files will be stored in the repo under images/uploads
 public_folder: "/img/uploads" # The src attribute for uploaded media will begin with /images/uploads
@@ -18,6 +18,6 @@ collections:
       - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
-      # - {label: "Featured Image", name: "thumbnail", widget: "image"}
+      - {label: "Featured Image", name: "thumbnail", widget: "image"}
+      - {label: "Body", name: "body", widget: "markdown"}
       # - {label: "Rating (scale of 1-5)", name: "rating", widget: "number"}
-      # - {label: "Body", name: "body", widget: "markdown"}
