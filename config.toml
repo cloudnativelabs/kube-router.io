@@ -11,17 +11,19 @@ disqusShortname = "kube-router"
 googleAnalytics = "UA-97817717-1"
 
 [Params]
+  logo = "img/avatar-icon.svg"
+  favicon = "img/favicon.ico"
   dateFormat = "January 2, 2006"
   rss = true
-  comments = true
+  comments = false
 
 [Author]
   github = "cloudnativelabs/kube-router"
   twitter = "cloudnativelabs"
-  #name = "kube-router"
+  name = "kube-router Volunteers"
   #email = "info@cloudnativelabs.net"
 
 [[menu.main]]
-    name = "Blog"
-    url = ""
-    weight = 1
+  name = "Blog"
+  url = ""
+  weight = 1
