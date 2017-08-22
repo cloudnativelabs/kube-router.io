@@ -3,3 +3,25 @@ languageCode = "en-us"
 title = "kube-router"
 theme = "beautifulhugo"
 ignoreFiles = [ "^_touch$" ]
+DefaultContentLanguage = "en"
+metaDataFormat = "yaml"
+pygmentsUseClasses = true
+pygmentCodeFences = true
+disqusShortname = "kube-router"
+googleAnalytics = "UA-97817717-1"
+
+[Params]
+  dateFormat = "January 2, 2006"
+  rss = true
+  comments = true
+
+[Author]
+  github = "cloudnativelabs/kube-router"
+  twitter = "cloudnativelabs"
+  #name = "kube-router"
+  #email = "info@cloudnativelabs.net"
+
+[[menu.main]]
+    name = "Blog"
+    url = ""
+    weight = 1
