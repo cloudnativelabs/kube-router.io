@@ -5,6 +5,10 @@
   box-shadow: 0 0 0 rgba(0,0,0,0) !important;
 }
 
+.intro-header .page-heading h1 {
+  display: none !important;
+}
+
 /* GLOBALS */
 a {
   text-decoration: none;
@@ -25,7 +29,7 @@ body {
   font-size: 1.125em;
   margin-bottom: 2.50937502509376em; }
 
-p {
+p, article {
   line-height: 1.44444em;
   margin-bottom: 25px; }
 
