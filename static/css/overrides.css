@@ -56,10 +56,9 @@ h3 {
 .navbar-brand span {
   display: none;
 }
-.navbar-brand:after {
-  content: "";
-  display: block;
+
+.navbar-brand {
   width: 370px;
   height: 50px;
-  background-color: pink;
+  background-image: url('../img/kube-router-textOnly.svg');
 }
