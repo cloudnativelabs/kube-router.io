@@ -54,9 +54,10 @@ h3 {
 
 /* NAVBAR */
 .navbar-brand {
-  display: none;
+  visibility: hidden;
 }
 .navbar-brand:after {
+  visibility: visible;
   content: "";
   display: block;
   width: 370px;
