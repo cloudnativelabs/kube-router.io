@@ -25,18 +25,18 @@ a {
 body {
   color: #6D6E70;
   background-color: #F0EDEE;
-  font-family: "omnes-pro", trebuchet, arial, sans-serif;
-  font-size: 1.125em;
+  font-family: "omnes-pro", trebuchet, arial, sans-serif !important;
+  font-size: 1.125em !important;
   margin-bottom: 2.50937502509376em; }
 
 p, article {
-  line-height: 1.44444em;
+  line-height: 1.44444em !important;
   margin-bottom: 25px; }
 
 h1 {
   color: #0A090C;
   font-family: "cooper-black-std", georgia, serif;
-  font-size: 3em;
+  font-size: 3em !important;
   margin-top: 25px;
   margin-bottom: 30px;
   text-transform: uppercase; }
@@ -44,12 +44,12 @@ h1 {
 h2 {
   color: #0A090C;
   font-family: "cooper-black-std", georgia, serif;
-  font-size: 2.25em;
+  font-size: 2.25em !important;
   margin-bottom: 15px; }
 
 h3 {
   color: #0A090C;
-  font-family: "omnes-pro", trebuchet, arial, sans-serif;
-  font-size: 1.5em;
+  font-family: "omnes-pro", trebuchet, arial, sans-serif !important;
+  font-size: 1.5em !important;
   margin-bottom: 10px;
   text-transform: uppercase; }
