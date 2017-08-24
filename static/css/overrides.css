@@ -51,15 +51,3 @@ h3 {
 .intro-header h1 {
   display: none;
 }
-
-/* NAVBAR */
-.navbar-brand span {
-  display: none;
-}
-
-.navbar-brand {
-  width: 370px;
-  height: 45px;
-  background-image: url('../img/kube-router-textOnly.svg');
-  background-repeat: no-repeat;
-}
