@@ -59,6 +59,7 @@ h3 {
 
 .navbar-brand {
   width: 370px;
-  height: 50px;
+  height: 45px;
   background-image: url('../img/kube-router-textOnly.svg');
+  background-repeat: no-repeat;
 }
