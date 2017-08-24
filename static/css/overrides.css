@@ -46,3 +46,20 @@ h3 {
   font-size: 1.5em !important;
   margin-bottom: 10px;
   text-transform: uppercase; }
+
+/* HOMEPAGE */
+.intro-header h1 {
+  display: none;
+}
+
+/* NAVBAR */
+.navbar-brand {
+  display: none;
+}
+.navbar-brand:after {
+  content: "";
+  display: block;
+  width: 370px;
+  height: 50px;
+  background-color: pink;
+}
