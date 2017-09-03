@@ -1,0 +1,133 @@
+@import 'reset';
+@import 'type-helper';
+@import 'font-loading';
+
+// COLOR VARS
+
+$black  : #0A090C;
+$white  : #F0EDEE;
+$blue   : #044389;
+$green  : #104F55;
+$yellow : #EDAE49;
+$gray   : #6D6E70;
+
+// FONT VARS
+$family: "museo-sans-rounded", helvetica, trebuchet, arial, sans-serif;
+
+// GLOBAL DEFAULTS
+a {
+  text-decoration: none;
+  border: 0;
+  &:link {
+    color: #044389;
+  }
+  &:visited {
+    color: #420039;
+  }
+  &:active {
+    color: #ED1C24;
+  }
+  &:hover {
+    color: $yellow;
+  }
+}
+
+body {
+  display: flex;
+  color: $gray;
+  background-color: $white;
+  font-family: $family;
+  font-weight: 300;
+  @include size-only(18);
+  background-color: #FFF;
+}
+
+p {
+  @include text-spacing (18, 26);
+  margin-bottom: 25px;
+}
+
+h1 {
+  color: $black;
+  font-family: $family;
+  @include size-only(48);
+  //margin-top: 25px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+
+h2 {
+  color: $black;
+  font-family: $family;
+  @include size-only(36);
+  margin-bottom: 15px;
+  font-weight: 100;
+}
+
+h3 {
+  color: $black;
+  font-family: $family;
+  @include size-only(24);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: 100;
+}
+
+// SCAFFOLDING
+#launch {
+  .fixedWrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    align-items: center;
+    > h1 {
+      display: none;
+    }
+    nav {
+      display: flex;
+    }
+    .status {
+      display: block;
+      margin: 15px;
+      opacity: 0.55;
+      padding: 15px 20px;
+      border-radius: 30px;
+      color: red;
+      &:before {
+        content: "Status: ";
+        color: $black;
+      }
+    }
+    .social {
+      width: 220px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      margin-bottom: auto;
+      span { display: none; }
+      img {
+        width: 20px;
+        height: 20px;
+        padding: 10px;
+        background-color: #FFF;
+        border-radius: 40px;
+        opacity: 0.5;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+}
+
+#content {
+  article {
+    position: relative;
+  }
+}
+
+// BREAKPOINTS
+@import 'breakpoints';

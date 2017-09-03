@@ -1,0 +1,52 @@
+// =================================================================================
+// SETS FONT-SIZE (1 parameter)
+// Converts PX to EM (base font size: 16px)
+// ---------------------------------------------------------------------------------
+// $size: input for font size from Photoshop (make sure PSD settings are set to PX)
+// =================================================================================
+@mixin size-only ($size) {
+	$size: $size/16;
+	font-size: #{$size}em;
+}
+
+// =================================================================================
+// SETS FONT-SIZE AND FONT-FAMILY (2 parameters)
+// Converts PX to EM (base font size: 16px)
+// ---------------------------------------------------------------------------------
+// $font: font-family setting (recommended to store in its own var)
+// $size: input for font size from Photoshop (make sure PSD settings are set to PX)
+// =================================================================================
+@mixin font-and-size ($font, $size) {
+	$size: $size/16;
+
+	font-family: $font;
+	font-size: #{$size}em;
+}
+
+// =================================================================================
+// SETS LINE-HEIGHT
+// ---------------------------------------------------------------------------------
+// $font: font-family setting (recommended to store in its own var)
+// $size: input for font size from Photoshop (make sure PSD settings are set to PX)
+// =================================================================================
+@mixin text-spacing ($size, $leading) {
+	$size: $leading/$size;
+	line-height: #{$size}em;
+}
+
+@mixin set-all-properties ($baseline, $size, $spacing, $font) {
+	font-family: $font;
+
+	@if $baseline == 1 {
+		line-height: 120%;
+	} @else {
+		$height: $baseline/$size;
+		line-height: #{$height}em;
+	}
+	@if $spacing == normal {
+		letter-spacing: normal;
+	} @else {
+		$spacing: $spacing/1000;
+		letter-spacing: #{$spacing}em;
+	}
+}
