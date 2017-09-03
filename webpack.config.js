@@ -1,15 +1,23 @@
+var glob = require("glob");
+var path = require('path');
+
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const extractSass = new ExtractTextPlugin({
-    filename: "[name].[contenthash].css",
-    disable: process.env.NODE_ENV === "development"
-});
+// const extractSass = new ExtractTextPlugin({
+//     filename: "[name].[contenthash].css",
+//     disable: process.env.NODE_ENV === "development"
+// });
 
 module.exports = {
+  entry: glob.sync("./sass/*.scss"),
+  output: {
+    path: path.join(__dirname, './css/'),
+    filename: '[name].css' // output js file name is identical to css file name
+  },
     module: {
         rules: [{
             test: /\.scss$/,
-            use: extractSass.extract({
+            use: ExtractTextPlugin.extract({
                 use: [{
                     loader: "css-loader"
                 }, {
@@ -21,6 +29,7 @@ module.exports = {
         }]
     },
     plugins: [
-        extractSass
+        // extractSass
+        new ExtractTextPlugin('[name].css')
     ]
 };
