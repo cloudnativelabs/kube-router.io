@@ -6,7 +6,6 @@ const extractSass = new ExtractTextPlugin({
 });
 
 module.exports = {
-  ...
     module: {
         rules: [{
             test: /\.scss$/,
