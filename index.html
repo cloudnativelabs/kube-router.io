@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>KUBE ROUTER | RELEASE THE KRAKEN</title>
+  <link rel="stylesheet" type="text/css" href="css/main.css" media="screen">
+  <link rel="dns-prefetch" href="//use.typekit.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://use.typekit.net/gnq8sky.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+</head>
+<body>
+  <div id="launch" role="navigation">
+    <a href="#launch" class="special">&utrif;TOP</a>
+    <div class="fixedWrapper gradient">
+      <h1><span>Kube-Router</span></h1>
+      <a class="large" href="/"><img class="logo" src="../img/logo-full-inverse.png" width="335" height="285" alt="kube-router-logo" title="kube router logo"></a>
+      <a class="small" href="/"><img src="../img/logo-text-only-inverse.png" width="225" height="45"></a>
+      <a class="tiny" href="/"><img src="../img/logo-shortened-text-only-inverse.png" width="60" height="42 "></a>
+      <nav>
+        <a href="#introduction">Introduction</a>
+        <a href="#primary-features">Primary Features</a>
+        <a href="#get-started">Get Started</a>
+        <a href="#contribute">Contribute</a>
+        <a href="#acknowledgement">Acknowledgements</a>
+        <!-- <a href="/blog.html">Blog</a> -->
+        <a href="https://blog--kube-router.netlify.com/#introduction">Blog</a>
+        <a href="https://github.com/cloudnativelabs/kube-router/tree/master/Documentation">Documentation</a>
+      </nav>
+      <div class="social">
+        <a href="https://github.com/cloudnativelabs/kube-router"><img style="fill:#ffffff;" src="../img/github.svg"><span>Github</span></a>
+        <a href="https://gitter.im/kube-router/Lobby"><img src="../img/gitter.svg"><span>Gitter</span></a>
+        <a href="https://twitter.com/cloudnativelabs"><img src="../img/twitter.svg"><span>Twitter</span></a>
+      </div>
+      <span class="status">Alpha</span>
+    </div>
+  </div>
+  <div id="content" role="main">
+    <article id="introduction">
+        <a href="/"><img class="title" src="../img/logo-text-only.svg" height="25"></a>
+        <h1 class="subtitle">future-proof Kubernetes networking</h1>
+        <!-- <p>Kube&#45;router is a distributed load balancer, firewall and router designed for operational simplicity and high performance within Kubernetes.</p> -->
+        <h2>Full Featured</h2>
+        <p>An efficient alternative to running two or three separate network componenets.</p>
+        <h2>Simple</h2>
+        <p>Small codebase, single-image deployment. Simply awesome.
+        <h2>Fast</h2>
+        <p>Bandwidth utilization and firewall efficiency that surpases most networking plugins.</p>
+        <h2>Scalable</h2>
+        <p>kube-router puts a modern twist on industry-standard technology and protocols.</p>
+        <a class="c2a" href="#get-started">Dive in!</a>
+    </article>
+    <article id="primary-features">
+      <h1>Primary Features</h1>
+      <div class="tileWrap">
+        <div class="tile">
+          <h2>IPVS/LVS Service Proxy</h2>
+          <span class="terminal">--run-service-proxy</span>
+          <p>Super fast in-kernel loadbalancing for Services.
+          Drop-in kube-proxy replacement.</p>
+          <a href="/">Linkie</a>
+        </div>
+        <div class="tile">
+          <h2>Pod Networking</h2>
+          <span class="terminal">--run-router</span>
+          <p>Direct routing with a modern BGP API. No external datastore or
+          CNI plugins.</p>
+          <a href="/">Linkie</a>
+        </div>
+        <div class="tile">
+          <h2>Network Policy Controller</h2>
+          <span class="terminal">--run-firewall</span>
+          <p>An efficient distributed firewall for your Pods.</p>
+          <a href="/">Linkie</a>
+        </div>
+        <div class="tile">
+          <h2>Advanced BGP Capabilities</h2>
+          <!-- <span class="terminal&#45;blank"></span> -->
+          <p>Integrates with your SDN or hardware network easily using Kubernetes resources for configuration.</p>
+          <a href="/">Linkie</a>
+        </div>
+      </div>
+    </article>
+    <article id="get-started">
+      <h1>Get Started</h1>
+      <ul>
+        <li><a href="https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/how-it-works.md">How it works</a></li>
+        <li><a href="https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/README.md#architecture">Architecture</a></li>
+        <li><a href="https://github.com/cloudnativelabs/kube-router/blob/master/Documentation#see-kube-router-in-action">Kube-router in action</a></li>
+        <li><a href="https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/README.md#user-guide">User Guide</a></li>
+        <li><a href="https://github.com/cloudnativelabs/kube-router/blob/master/Documentation/developing.md">Developer Guide</a></li>
+      </ul>
+    </article>
+    <article id="contribute">
+      <h1>Contribute</h1>
+      <p>We encourage all kinds of contributions, be they documentation, code, fixing typos, tests&emdash;anything at all.</p>
+      <a class="c2a" href="https://github.com/cloudnativelabs/kube-router/blob/master/CONTRIBUTING.md">Contribution Guide</a>
+      <h2>Support &amp; Feedback</h2>
+      <p>If you experience any problems, please reach us on our gitter <a href="https://gitter.im/kube-router/Lobby">community forum</a> for quick help. Feel free to leave feedback or raise questions at any time by opening an issue <a href="https://github.com/cloudnativelabs/kube-router/issues">here</a>.</p>
+    </article>
+    <article id="acknowledgement">
+      <h1>Acknowledgements</h1>
+      <p>Kube-router is built upon the following libraries:</p>
+        <ul>
+          <li>Iptables: <a href="https://github.com/coreos/go-iptables">https://github.com/coreos/go-iptables</a></li>
+          <li>GoBGP: <a href="https://github.com/osrg/gobgp">https://github.com/osrg/gobgp</a></li>
+          <li>Netlink: <a href="https://github.com/vishvananda/netlink">https://github.com/vishvananda/netlink</a></li>
+          <li>Ipset: <a href="https://github.com/janeczku/go-ipset">https://github.com/janeczku/go-ipset</a></li>
+          <li>IPVS: <a href="https://github.com/docker/libnetwork/">https://github.com/docker/libnetwork/</a></li>
+        </ul>
+    </article>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+  <script src="../js/gradient.js"></script>
+  <script src="../js/navbar-mobile.js"></script>
+</body>
+</html>
