@@ -35,41 +35,46 @@
   </div>
   <div id="content" role="main">
     <article id="introduction">
-      <h1>Intro to Kube Router</h2>
-        <p>Kube-router is a distributed load balancer, firewall and router designed for operational simplicity and high performance within Kubernetes.</p>
-        <h2>Just One DaemonSet/Binary</h2>
-        <p>With all features enabled, kube-router becomes a lean but powerful alternative to the typical Kubernetes cluster.</p>
-        <h2>Small Footprint</h2>
-        <p>Check out kube-router's <a href="https://github.com/cloudnativelabs/kube-router/tree/master/app/controllers">tiny codebase</a>! Kube-router leverages the IPVS that is already in a Kubernetes node. Add in GoBGP's modern BGP interface, and you got a recipe for awesome-sauce networking magic.</p>
-        <h2>High Performance</h2>
-        <p>Performance is the main motivation for developing kube-router. Combining BGP and IPVS is a perfect recipe for high-performance cluster networking at scale. BGP ensures that the data path is dynamic and efficient while IPVS provides in-kernal load balancing that has been thoroughly tested and optimized.</p>
+        <a href="/"><img class="title" src="../img/logo-text-only.svg" height="25"></a>
+        <h1 class="subtitle">future-proof Kubernetes networking</h1>
+        <!-- <p>Kube&#45;router is a distributed load balancer, firewall and router designed for operational simplicity and high performance within Kubernetes.</p> -->
+        <h2>Full Featured</h2>
+        <p>An efficient alternative to running two or three separate network componenets.</p>
+        <h2>Simple</h2>
+        <p>Small codebase, single-image deployment. Simply awesome.
+        <h2>Fast</h2>
+        <p>Bandwidth utilization and firewall efficiency that surpases most networking plugins.</p>
+        <h2>Scalable</h2>
+        <p>kube-router puts a modern twist on industry-standard technology and protocols.</p>
         <a class="c2a" href="#get-started">Dive in!</a>
     </article>
     <article id="primary-features">
       <h1>Primary Features</h1>
       <div class="tileWrap">
         <div class="tile">
-          <h2>IPVS/LVS Based Service Proxy</h2>
+          <h2>IPVS/LVS Service Proxy</h2>
           <span class="terminal">--run-service-proxy</span>
-          <p>Put some interesting text here but keep it tweet length if possible.</p>
+          <p>Super fast in-kernel loadbalancing for Services.
+          Drop-in kube-proxy replacement.</p>
           <a href="/">Linkie</a>
         </div>
         <div class="tile">
           <h2>Pod Networking</h2>
           <span class="terminal">--run-router</span>
-          <p>Put some interesting text here but keep it tweet length if possible.</p>
+          <p>Direct routing with a modern BGP API. No external datastore or
+          CNI plugins.</p>
           <a href="/">Linkie</a>
         </div>
         <div class="tile">
           <h2>Network Policy Controller</h2>
           <span class="terminal">--run-firewall</span>
-          <p>Put some interesting text here but keep it tweet length if possible.</p>
+          <p>An efficient distributed firewall for your Pods.</p>
           <a href="/">Linkie</a>
         </div>
         <div class="tile">
           <h2>Advanced BGP Capabilities</h2>
-          <span class="terminal-blank"></span>
-          <p>Put some interesting text here but keep it tweet length if possible.</p>
+          <!-- <span class="terminal&#45;blank"></span> -->
+          <p>Integrates with your SDN or hardware network easily using Kubernetes resources for configuration.</p>
           <a href="/">Linkie</a>
         </div>
       </div>
