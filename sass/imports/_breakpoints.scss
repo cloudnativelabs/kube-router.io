@@ -138,4 +138,13 @@
     }
   }
 }
-// OVERSIZED
+
+// ADJUSTING FOR HEIGHTS...
+@media only screen and (min-height: 700px) and (max-height: 899px) {
+  #launch .logo {
+    display: block;
+    width: 75%;
+    height: 75%;
+    margin: 30px auto;
+  }
+}
