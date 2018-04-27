@@ -1,27 +1,10 @@
-# Global settings applied to the whole site.
+[build]
+  base    = "/"
+  publish = "/"
+  command = "mkdocs"
+
 [build]
   base    = "/"
   publish = "/"
   command = "webpack"
 
-# Production context: All deploys to the main
-# repository branch will inherit these settings.
-# [context.production]
-
-# Deploy Preview context: All Deploy Previews
-# will inherit these settings.
-# [context.deploy-preview.environment]
-
-# Branch Deploy context: All deploys that are not in
-# an active Deploy Preview will inherit these settings.
-# [context.branch-deploy]
-#   command = "hugo --baseURL=https://${BRANCH}--kube-router.netlify.com/"
-
-# Specific branch context: Deploys from this branch
-# will take these settings and override their
-# current ones.
-# [context.feature]
-#   command = "make feature"
-
-# [context."features/branch"]
-#   command = "gulp"
