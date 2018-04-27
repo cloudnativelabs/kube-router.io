@@ -1,4 +1,10 @@
 [build]
-  base = "/"
+  base    = "/"
   publish = "/"
   command = "mkdocs"
+
+[build]
+  base    = "/"
+  publish = "/"
+  command = "webpack"
+
