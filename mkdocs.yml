@@ -17,24 +17,24 @@ theme:
 
 # Page tree
 pages:
-  - Overview:
-    - Introduction: index.md
+  - Overview: index.md
   - Concepts:
     - How it works: how-it-works.md
     - See it in action: see-it-in-action.md
+    - Architecture: architecture.md
   - Installation:
     - Generic: generic.md
     - BootKube: bootkube.md
     - Kops: kops.md
     - Kubeadm: kubeadm.md
-  - Configuration:
+  - Usage:
     - BGP: bgp.md
-  - Development:
-    - Developing: developing.md
-    - Testing: testing.md
   - Operations:
     - Health: health.md
     - Metrics: metrics.md
     - Upgrading: upgrading.md
     - Toolbox: pod-toolbox.md
+  - Development:
+    - Developing: developing.md
+    - Testing: testing.md
 
