@@ -1,2 +1,3 @@
 all:
 	webpack
+	mkdocs build
