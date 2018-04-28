@@ -27,14 +27,14 @@ pages:
     - BootKube: bootkube.md
     - Kops: kops.md
     - Kubeadm: kubeadm.md
-  - Configuration:
+  - Usage:
     - BGP: bgp.md
-  - Development:
-    - Developing: developing.md
-    - Testing: testing.md
   - Operations:
     - Health: health.md
     - Metrics: metrics.md
     - Upgrading: upgrading.md
     - Toolbox: pod-toolbox.md
+  - Development:
+    - Developing: developing.md
+    - Testing: testing.md
 
