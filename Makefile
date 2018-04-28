@@ -1,3 +1,3 @@
 all:
 	webpack
-	mkdocs build
+	mkdocs build --site-dir docs
