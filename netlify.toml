@@ -1,7 +1,7 @@
 # Global settings applied to the whole site.
 [build]
   base    = "/"
-  publish = "/"
+  publish = "/site"
   command = "make"
 
 # Production context: All deploys to the main
