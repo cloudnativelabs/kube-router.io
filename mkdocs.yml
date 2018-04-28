@@ -18,10 +18,34 @@ theme:
     primary: cyan
     accent: indigo
   # Don't include MkDocs' JavaScript
-  include_search_page: false
+  include_search_page: true
   search_index_only: true
 
   # Default values, taken from mkdocs_theme.yml
   language: en
   feature:
     tabs: false
+
+# Page tree
+pages:
+  - Overview:
+    - Introduction: index.md
+  - Concepts:
+    - How it works: how-it-works.md
+    - See it in action: see-it-in-action.md
+  - Installation:
+    - Generic: generic.md
+    - BootKube: bootkube.md
+    - Kops: kops.md
+    - Kubeadm: kubeadm.md
+  - Configuration:
+    - BGP: bgp.md
+  - Development:
+    - Developing: developing.md
+    - Testing: testing.md
+  - Operations:
+    - Health: health.md
+    - Metrics: metrics.md
+    - Upgrading: upgrading.md
+    - Toolbox: pod-toolbox.md
+
