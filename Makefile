@@ -1,1 +1,2 @@
-webpack
+all:
+	webpack
