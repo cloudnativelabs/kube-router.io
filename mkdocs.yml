@@ -13,7 +13,7 @@ docs_dir: "kube-router/docs"
 
 # Theme and overrides, i.e. language partial
 theme:
-  name: "rtd-dropdown"
+  name: "material"
 
 # Page tree
 pages:
