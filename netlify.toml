@@ -1,8 +1,8 @@
 # Global settings applied to the whole site.
 [build]
   base    = "/"
-  publish = "/"
-  command = "make"
+  publish = "_site"
+  command = "jekyll build"
 
 # Production context: All deploys to the main
 # repository branch will inherit these settings.

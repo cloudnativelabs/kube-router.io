@@ -1,3 +1,0 @@
-[submodule "kube-router"]
-	path = kube-router
-	url = https://github.com/cloudnativelabs/kube-router

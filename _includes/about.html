@@ -1,0 +1,83 @@
+    <!-- ******ABOUT****** -->
+    <section id="about" class="about section">
+        <div class="container">
+            <h2 class="title text-left">Why Kube-Router?</h2>
+             <p class="font-big font-light no-margin-top">{{ reason }}</p>
+                The Kube-router is a turnkey solution for Kubernetes networking with aim to provide operational simplicity. Networking is hard as such. In typical Kubernetes cluster you would need to install multiple network components for various functionality. With many moving parts it makes Kubernetes networking even harder. Kube-router provides a cohesive yet lean and powerful alternative to several network components you would use. All this from a single DaemonSet/Binary. It doesn't get any
+                easier.
+            </p>
+             <p class="font-big font-light no-margin-top">{{ reason }}</p>
+                    Providing high performance is at the core of all the design choices made in Kube-router. Be it the use of IPVS/LVS for service proxy or the use of direct routing across the nodes for pod networking etc.
+            </p>
+             <p class="font-big font-light no-margin-top">{{ reason }}</p>
+                        Kube-router is also a purpose built solution for Kubernetes so no additional overhead to support other orchestration platforms and natively integrates with out-of-box functionality provided by Kubernetes and CNI plug-ins for IPAM, pod networking etc. Also one of the key design tenet of Kube-router is to use standard Linux networking stack and toolset. There is no overlays or SDN pixie dust, but just plain good old Linux networking. So its lot leaner.
+            </p>
+            <br>
+            <br>
+            <h2 class="title text-left">Features</h2>
+            <div class="row">
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-reply-all"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">IPVS/LVS Service Proxy</h3>
+                        <p>Kube-router uses battle-tested Linux LVS/IPVS to provide a service proxy and provides rich set of scheduling options and enables advanced use-cases like DSR.</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-sitemap"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Pod Networking</h3>
+                        <p>kube-router handles Pod networking efficiently with direct routing thanks to the BGP protocol and the GoBGP Go library.</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-filter"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Network Policy</h3>
+                        <p>Kube-router fully support Network Policy semantics. It uses ipsets with iptables to enforce network policies but have as little performance impact on your cluster as possible.</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+                <div class="clearfix visible-md"></div>
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-spinner"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Network Load Balancer</h3>
+                        <p>Kube-router has the ability to advertise service VIP's to L3 fabric BGP peers. So you can do network load balancing with ECMP.</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-paw"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">Small footprint</h3>
+                        <p>Although it does the work of several of its peers in one binary, kube-router does it all with a relatively tiny code base. Easy to hack-up and maintain.</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+                <div class="item col-md-4 col-sm-6 col-xs-12">
+                    <div class="icon-holder">
+                        <i class="fa fa-fighter-jet"></i>
+                    </div>
+                    <div class="content">
+                        <h3 class="sub-title">High performance</h3>
+                        <p>A primary motivation for kube-router is performance. The combination of BGP for inter-node Pod networking and IPVS for load balanced proxy Services is a perfect recipe for high-performance cluster networking at scale.</p>
+                    </div><!--//content-->
+                </div><!--//item-->
+            </div><!--//row-->
+            <h3 class="title text-center">Ready to Get Started?</h3>
+            <div align="center">
+                <a class="btn btn-cta-primary" href="https://github.com/cloudnativelabs/kube-router">Github</a>
+                <a class="btn btn-cta-primary" href="https://github.com/cloudnativelabs/kube-router/tree/master/docs">Documentation</a>
+                <a class="btn btn-cta-primary" href="https://github.com/cloudnativelabs/kube-router/tree/master/docs#user-guide">User Guide</a>
+                <a class="btn btn-cta-primary" href="https://cloudnativelabs.github.io">Blog</a>
+            </div>
+        </div><!--//container-->
+    </section><!--//about-->
