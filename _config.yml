@@ -40,7 +40,7 @@ widgets:
     url: "https://github.com/cloudnativelabs/kube-router"
     archor: false
   - title: Documentation
-    url: "https://github.com/cloudnativelabs/kube-router/tree/master/docs"
+    url: "https://www.kube-router.io/docs"
     archor: false
   - title: Blog
     url: "https://cloudnativelabs.github.io"
