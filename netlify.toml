@@ -2,7 +2,7 @@
 [build]
   base    = "/"
   publish = "_site"
-  command = "jekyll build"
+  command = "make"
 
 # Production context: All deploys to the main
 # repository branch will inherit these settings.
