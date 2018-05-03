@@ -1,0 +1,32 @@
+# Project information
+site_name: Kube-router
+site_description: "Kube-router: a turnkey Kubernetes networking solution"
+site_author: "Kube-router Project"
+site_url: https://github.com/cloudnativelabs/kube-router
+
+
+# Repository
+repo_name: kube-router
+repo_url: https://github.com/cloudnativelabs/kube-router
+edit_uri: ""
+docs_dir: "kube-router/docs"
+
+# Theme and overrides, i.e. language partial
+theme:
+  name: "rtd-dropdown"
+
+pages:
+  - Overview: "index.md"
+  - Introduction: "introduction.md"
+  - Concepts:
+    - See it in Action : see-it-in-action.md
+    - Architecture : architecture.md
+    - How it works : how-it-works.md
+  - User Guide: "user-guide.md"
+  - Operations Guide:
+    - Health: "health.md"
+    - Metrics: "metrics.md"
+    - Troubleshoot: "troubleshoot.md"
+    - Pod tool box: "pod-toolbox.md"
+    - Upgrading: "upgrading.md"
+  - Developing: "developing.md"
