@@ -33,6 +33,7 @@ gems:
 markdown:     kramdown
 permalink:    pretty
 
+exclude: kube-router
 widgets:
   - title: Github
     url: "https://github.com/cloudnativelabs/kube-router"
