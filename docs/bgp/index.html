@@ -1,0 +1,1079 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Kube-router: a turnkey Kubernetes networking solution">
+      
+      
+        <meta name="author" content="Kube-router Project">
+      
+      
+        <link rel="canonical" href="https://github.com/cloudnativelabs/kube-router/bgp/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>BGP - Kube-router</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#configuring-bgp-peers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Kube-router" class="md-header__button md-logo" aria-label="Kube-router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kube-router
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              BGP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cloudnativelabs/kube-router" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kube-router
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Kube-router" class="md-nav__button md-logo" aria-label="Kube-router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Kube-router
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cloudnativelabs/kube-router" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kube-router
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Concepts" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../see-it-in-action/" class="md-nav__link">
+        See it in Action
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        Architecture
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-it-works/" class="md-nav__link">
+        How it works
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsr/" class="md-nav__link">
+        DSR
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          BGP
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        BGP
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#peering-within-the-cluster" class="md-nav__link">
+    Peering Within The Cluster
+  </a>
+  
+    <nav class="md-nav" aria-label="Peering Within The Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-node-to-node-mesh" class="md-nav__link">
+    Full Node-To-Node Mesh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-to-node-peering-without-full-mesh" class="md-nav__link">
+    Node-To-Node Peering Without Full Mesh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route-reflector-setup-without-full-mesh" class="md-nav__link">
+    Route-Reflector setup  Without Full Mesh
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#peering-outside-the-cluster" class="md-nav__link">
+    Peering Outside The Cluster
+  </a>
+  
+    <nav class="md-nav" aria-label="Peering Outside The Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-external-bgp-peers" class="md-nav__link">
+    Global External BGP Peers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-specific-external-bgp-peers" class="md-nav__link">
+    Node Specific External BGP Peers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as-path-prepending" class="md-nav__link">
+    AS Path Prepending
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp-peer-password-authentication" class="md-nav__link">
+    BGP Peer Password Authentication
+  </a>
+  
+    <nav class="md-nav" aria-label="BGP Peer Password Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base64-encoding-passwords" class="md-nav__link">
+    Base64 Encoding Passwords
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-configuration-examples" class="md-nav__link">
+    Password Configuration Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp-communities" class="md-nav__link">
+    BGP Communities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bgp-listen-address-list" class="md-nav__link">
+    BGP listen address list
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overriding-the-next-hop" class="md-nav__link">
+    Overriding the next hop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overriding-the-next-hop-and-enable-ipiptuennel" class="md-nav__link">
+    Overriding the next hop and enable IPIP/tuennel
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../user-guide/" class="md-nav__link">
+        User Guide
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Operations Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Operations Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Operations Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../health/" class="md-nav__link">
+        Health
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics/" class="md-nav__link">
+        Metrics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Observability/" class="md-nav__link">
+        Observability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshoot/" class="md-nav__link">
+        Troubleshoot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-toolbox/" class="md-nav__link">
+        Pod tool box
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/" class="md-nav__link">
+        Upgrading
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Deploying
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deploying" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Deploying
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kops/" class="md-nav__link">
+        kops
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeadm/" class="md-nav__link">
+        kubeadm
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developing/" class="md-nav__link">
+        Developing
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#peering-within-the-cluster" class="md-nav__link">
+    Peering Within The Cluster
+  </a>
+  
+    <nav class="md-nav" aria-label="Peering Within The Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#full-node-to-node-mesh" class="md-nav__link">
+    Full Node-To-Node Mesh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-to-node-peering-without-full-mesh" class="md-nav__link">
+    Node-To-Node Peering Without Full Mesh
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#route-reflector-setup-without-full-mesh" class="md-nav__link">
+    Route-Reflector setup  Without Full Mesh
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#peering-outside-the-cluster" class="md-nav__link">
+    Peering Outside The Cluster
+  </a>
+  
+    <nav class="md-nav" aria-label="Peering Outside The Cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-external-bgp-peers" class="md-nav__link">
+    Global External BGP Peers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-specific-external-bgp-peers" class="md-nav__link">
+    Node Specific External BGP Peers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#as-path-prepending" class="md-nav__link">
+    AS Path Prepending
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp-peer-password-authentication" class="md-nav__link">
+    BGP Peer Password Authentication
+  </a>
+  
+    <nav class="md-nav" aria-label="BGP Peer Password Authentication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#base64-encoding-passwords" class="md-nav__link">
+    Base64 Encoding Passwords
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#password-configuration-examples" class="md-nav__link">
+    Password Configuration Examples
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bgp-communities" class="md-nav__link">
+    BGP Communities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bgp-listen-address-list" class="md-nav__link">
+    BGP listen address list
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overriding-the-next-hop" class="md-nav__link">
+    Overriding the next hop
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overriding-the-next-hop-and-enable-ipiptuennel" class="md-nav__link">
+    Overriding the next hop and enable IPIP/tuennel
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="configuring-bgp-peers">Configuring BGP Peers</h1>
+<p>When kube-router is used to provide pod-to-pod networking, BGP is used to exchange routes across the nodes. Kube-router
+provides flexible networking models to support different deployments (public vs private cloud, routable vs non-routable
+pod IP's, service ip's etc).</p>
+<h2 id="peering-within-the-cluster">Peering Within The Cluster</h2>
+<h3 id="full-node-to-node-mesh">Full Node-To-Node Mesh</h3>
+<p>This is the default mode. All nodes in the clusters form iBGP peering
+relationship with rest of the nodes forming full node-to-node mesh. Each node
+advertise the pod CIDR allocated to the nodes with peers (rest of the nodes in
+the cluster).  There is no configuration required in this mode. All the nodes in
+the cluster are associated with private ASN 64512 implicitly (which can be
+configured with <code>--cluster-asn</code> flag). Users are transparent to use of iBGP.
+This mode is suitable in public cloud environments or small cluster deployments.</p>
+<h3 id="node-to-node-peering-without-full-mesh">Node-To-Node Peering Without Full Mesh</h3>
+<p>This model support more than a single AS per cluster to allow AS per rack or AS
+per node models. Nodes in the cluster does not form full node-to-node mesh.
+Users has to explicitly select this mode by specifying <code>--nodes-full-mesh=false</code>
+when launching kube-router. In this mode kube-router expects each node is
+configured with an ASN number from the node's API object annonations. Kube-router
+will use the node's <code>kube-router.io/node.asn</code> annotation value as the ASN
+number for the node.</p>
+<p>Users can annotate node objects with the following command:</p>
+<pre><code>kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/node.asn=64512&quot;
+</code></pre>
+<p>Only nodes with in same ASN form full mesh. Two nodes with different ASNs never
+get peered.</p>
+<h3 id="route-reflector-setup-without-full-mesh">Route-Reflector setup  Without Full Mesh</h3>
+<p>This model support the common scheme of using Route Reflector Server node to concentrate
+peering from Client Peer. This has the big advantage of not needing full mesh, and
+scale better. In this mode kube-router expects each node is configured either in
+Route Reflector server mode or in Route Reflector client mode. This is done
+with node <code>kube-router.io/rr.server=ClusterID</code>, <code>kube-router.io/rr.client=ClusterId</code>
+respectively. In this mode each Route Reflector Client will only peer with Route
+Reflector Servers. Each Route Reflector Server will peer other Route Reflector
+Server and with Route Reflector Clients enabling reflection.</p>
+<p>Users can annotate node objects with the following command:</p>
+<pre><code>kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/rr.server=42&quot;
+</code></pre>
+<p>for Route Reflector server mode, and</p>
+<pre><code>kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/rr.client=42&quot;
+</code></pre>
+<p>for Route Reflector client mode.</p>
+<p>Only nodes with the same ClusterID in client and server mode will peer together.</p>
+<p>When joining new nodes to the cluster, remember to annotate them with <code>kube-router.io/rr.client=42</code>, and then restart kube-router on the new nodes and the route reflector server nodes to let them successfully read the annotations and peer with each other.</p>
+<h2 id="peering-outside-the-cluster">Peering Outside The Cluster</h2>
+<h3 id="global-external-bgp-peers">Global External BGP Peers</h3>
+<p>An optional global BGP peer can be configured by specifying <code>--peer-router-asns</code>
+and <code>--peer-router-ips</code> parameters. When configured each node in the cluster
+forms a peer relationship with specified global peer. Pod CIDR and Cluster IP's
+get advertised to the global BGP peer. For redundancy you can also configure
+more than one peer router by specifying a slice of BGP peers.</p>
+<p>For example:</p>
+<pre><code>--peer-router-ips=&quot;192.168.1.99,192.168.1.100&quot;
+--peer-router-asns=65000,65000
+</code></pre>
+<h3 id="node-specific-external-bgp-peers">Node Specific External BGP Peers</h3>
+<p>Alternatively, each node can be configured with one or more node specific BGP
+peers. Information regarding node specific BGP peer is read from node API object
+annotations:
+- <code>kube-router.io/peer.ips</code>
+- <code>kube-router.io/peer.asns</code></p>
+<p>For e.g users can annotate node object with below commands</p>
+<pre><code>kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/peer.ips=192.168.1.99,192.168.1.100&quot;
+kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/peer.asns=65000,65000&quot;
+</code></pre>
+<h3 id="as-path-prepending">AS Path Prepending</h3>
+<p>For traffic shaping purposes, you may want to prepend the AS path announced to peers.
+This can be accomplished on a per-node basis with annotations:
+- <code>kube-router.io/path-prepend.as</code>
+- <code>kube-router.io/path-prepend.repeat-n</code></p>
+<p>If you wanted to prepend all routes from a particular node with the AS 65000 five times,
+you would run the following commands:</p>
+<pre><code>kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/path-prepend.as=65000&quot;
+kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/path-prepend.repeat-n=5&quot;
+</code></pre>
+<h3 id="bgp-peer-password-authentication">BGP Peer Password Authentication</h3>
+<p>The examples above have assumed there is no password authentication with BGP
+peer routers. If you need to use a password for peering, you can use the
+<code>--peer-router-passwords</code> command-line option, the <code>kube-router.io/peer.passwords</code> node
+annotation, or the <code>--peer-router-passwords-file</code> command-line option.</p>
+<h4 id="base64-encoding-passwords">Base64 Encoding Passwords</h4>
+<p>To ensure passwords are easily parsed, but not easily read by human eyes,
+kube-router requires that they are encoded as base64.</p>
+<p>On a Linux or MacOS system you can encode your passwords on the command line:</p>
+<pre><code>$ printf &quot;SecurePassword&quot; | base64
+U2VjdXJlUGFzc3dvcmQ=
+</code></pre>
+<h4 id="password-configuration-examples">Password Configuration Examples</h4>
+<p>In this CLI flag example the first router (192.168.1.99) uses a password, while
+the second (192.168.1.100) does not.</p>
+<pre><code>--peer-router-ips=&quot;192.168.1.99,192.168.1.100&quot;
+--peer-router-asns=&quot;65000,65000&quot;
+--peer-router-passwords=&quot;U2VjdXJlUGFzc3dvcmQK,&quot;
+</code></pre>
+<p>Note the comma indicating the end of the first password.</p>
+<p>Now here's the same example but configured as node annotations:</p>
+<pre><code>kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/peer.ips=192.168.1.99,192.168.1.100&quot;
+kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/peer.asns=65000,65000&quot;
+kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/peer.passwords=U2VjdXJlUGFzc3dvcmQK,&quot;
+</code></pre>
+<p>Finally, to include peer passwords as a file you would run kube-router with the following option:</p>
+<pre><code>--peer-router-ips=&quot;192.168.1.99,192.168.1.100&quot;
+--peer-router-asns=&quot;65000,65000&quot;
+--peer-router-passwords-file=&quot;/etc/kube-router/bgp-passwords.conf&quot;
+</code></pre>
+<p>The password file, closely follows the syntax of the command-line and node annotation options.
+Here, the first peer IP (192.168.1.99) would be configured with a password, while the second would not.</p>
+<pre><code>U2VjdXJlUGFzc3dvcmQK,
+</code></pre>
+<p>Note, complex parsing is not done on this file, please do not include any content other than the passwords on a single line in this file.</p>
+<h3 id="bgp-communities">BGP Communities</h3>
+<p>Global peers support the addition of BGP communities via node annotations. Node annotations can be formulated either as:
+* a single 32-bit integer
+* two 16-bit integers separated by a colon (<code>:</code>)
+* common BGP community names (e.g. <code>no-export</code>, <code>internet</code>, <code>no-peer</code>, etc.) (see: <a href="https://github.com/osrg/gobgp/blob/cbdb752b10847163d9f942853b67cf173b6aa151/pkg/packet/bgp/bgp.go#L9444">WellKnownCommunityNameMap</a>)</p>
+<p>In the following example we add the <code>NO_EXPORT</code> BGP community to two of our nodes via annotation using all three forms of the annotation:</p>
+<pre><code>kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/node.bgp.communities=4294967041&quot;
+kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/node.bgp.communities=65535:65281&quot;
+kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/node.bgp.communities=no-export&quot;
+</code></pre>
+<h2 id="bgp-listen-address-list">BGP listen address list</h2>
+<p>By default, GoBGP server binds on the node IP address. However in case of nodes with multiple IP address it is desirable to bind GoBGP to multiple local adresses. Local IP address on which GoGBP should listen on a node can be configured with annotation <code>kube-router.io/bgp-local-addresses</code>.</p>
+<p>Here is sample example to make GoBGP server to listen on multiple IP address</p>
+<pre><code>kubectl annotate node ip-172-20-46-87.us-west-2.compute.internal &quot;kube-router.io/bgp-local-addresses=172.20.56.25,192.168.1.99&quot;
+</code></pre>
+<h2 id="overriding-the-next-hop">Overriding the next hop</h2>
+<p>By default kube-router populates GoBGP RIB with node IP as next hop for the advertised pod CIDR's and service VIP. While this works for most cases, overriding the next hop for the advertised rotues is necessary when node has multiple interfaces over which external peers are reached. Next hop need to be as per the interface local IP over which external peer can be reached. <code>--override-nexthop</code> let you override the next hop for the advertised route. Setting <code>--override-nexthop</code> to true leverages BGP next-hop-self functionality implemented in GoBGP. Next hop will automatically selected appropriately when advertising routes irrespective of the next hop in the RIB. </p>
+<h2 id="overriding-the-next-hop-and-enable-ipiptuennel">Overriding the next hop and enable IPIP/tuennel</h2>
+<p>A common scenario exists where each node in the cluster is connected to two upstream routers that are in two different subnets. For example, one router is connected to a public network subnet and the other router is connected to a private network subnet. Additionally, nodes may be split across different subnets (e.g. different racks) each of which has their own routers.</p>
+<p>In this scenario, <code>--override-nexthop</code> can be used to correctly peer with each upstream router, ensuring that the BGP next-hop attribute is correctly set to the node's IP address that faces the upstream router. The <code>--enable-overlay</code> option can be set to allow overlay/underlay tunneling across the different subnets to achieve an interconnected pod network.
+ This configuration would have the following effects:</p>
+<ul>
+<li>Peering Outside the Cluster (https://github.com/cloudnativelabs/kube-router/blob/master/docs/bgp.md#peering-outside-the-cluster) via one of the many means that kube-router makes that option available</li>
+<li>Overriding Next Hop</li>
+<li>Enabling overlays in either full mode or with nodes in different subnets</li>
+</ul>
+<p>The warning here is that when using <code>--override-nexthop</code> in the above scenario, it may cause kube-router to advertise an IP address other than the node IP which is what kube-router connects the tunnel to when the <code>--enable-overlay</code> option is given. If this happens it may cause some network flows to become un-routable.</p>
+<p>Specifically, people need to take care when combining <code>--override-nexthop</code> and <code>--enable-overlay</code> and make sure that they understand their network, the flows they desire, how the kube-router logic works, and the possible side-effects that are created from their configuration. Please refer to this PR for the risk and impact discussion https://github.com/cloudnativelabs/kube-router/pull/1025.</p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../dsr/" class="md-footer__link md-footer__link--prev" aria-label="Previous: DSR" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              DSR
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../user-guide/" class="md-footer__link md-footer__link--next" aria-label="Next: User Guide" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              User Guide
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>
