@@ -33,7 +33,7 @@ gems:
 markdown:     kramdown
 permalink:    pretty
 
-exclude: kube-router
+exclude: [kube-router]
 
 widgets:
   - title: Github
