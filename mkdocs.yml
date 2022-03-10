@@ -13,20 +13,26 @@ docs_dir: "kube-router/docs"
 
 # Theme and overrides, i.e. language partial
 theme:
-  name: "rtd-dropdown"
+  name: "readthedocs"
 
 nav:
-  - Overview: "index.md"
-  - Introduction: "introduction.md"
+  - Overview: index.md
+  - Introduction: introduction.md
   - Concepts:
-    - See it in Action : see-it-in-action.md
-    - Architecture : architecture.md
-    - How it works : how-it-works.md
-  - User Guide: "user-guide.md"
+    - See it in Action: see-it-in-action.md
+    - Architecture: architecture.md
+    - How it works: how-it-works.md
+    - DSR: dsr.md
+    - BGP: bgp.md
+  - User Guide: user-guide.md
   - Operations Guide:
-    - Health: "health.md"
-    - Metrics: "metrics.md"
-    - Troubleshoot: "troubleshoot.md"
-    - Pod tool box: "pod-toolbox.md"
-    - Upgrading: "upgrading.md"
-  - Developing: "developing.md"
+    - Health: health.md
+    - Metrics: metrics.md
+    - Observability: Observability.md
+    - Troubleshoot: troubleshoot.md
+    - Pod tool box: pod-toolbox.md
+    - Upgrading: upgrading.md
+  - Deploying:
+    - kops: kops.md
+    - kubeadm: kubeadm.md
+  - Developing: developing.md
