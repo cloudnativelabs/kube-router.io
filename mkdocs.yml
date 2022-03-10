@@ -15,7 +15,7 @@ docs_dir: "kube-router/docs"
 theme:
   name: "rtd-dropdown"
 
-pages:
+nav:
   - Overview: "index.md"
   - Introduction: "introduction.md"
   - Concepts:
