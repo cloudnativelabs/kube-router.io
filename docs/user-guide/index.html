@@ -1,0 +1,1313 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Kube-router: a turnkey Kubernetes networking solution">
+      
+      
+        <meta name="author" content="Kube-router Project">
+      
+      
+        <link rel="canonical" href="https://github.com/cloudnativelabs/kube-router/user-guide/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>User Guide - Kube-router</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#user-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Kube-router" class="md-header__button md-logo" aria-label="Kube-router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kube-router
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              User Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/cloudnativelabs/kube-router" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kube-router
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Kube-router" class="md-nav__button md-logo" aria-label="Kube-router" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Kube-router
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/cloudnativelabs/kube-router" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    kube-router
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Concepts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Concepts" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Concepts
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../see-it-in-action/" class="md-nav__link">
+        See it in Action
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        Architecture
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-it-works/" class="md-nav__link">
+        How it works
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../dsr/" class="md-nav__link">
+        DSR
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bgp/" class="md-nav__link">
+        BGP
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        User Guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#try-kube-router-with-cluster-installers" class="md-nav__link">
+    Try Kube-router with cluster installers
+  </a>
+  
+    <nav class="md-nav" aria-label="Try Kube-router with cluster installers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kops" class="md-nav__link">
+    kops
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootkube" class="md-nav__link">
+    bootkube
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubeadm" class="md-nav__link">
+    kubeadm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k0sproject" class="md-nav__link">
+    k0sproject
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generic" class="md-nav__link">
+    generic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amazon-specific-notes" class="md-nav__link">
+    Amazon specific notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    deployment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    command line options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-as-daemonset" class="md-nav__link">
+    running as daemonset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-as-agent" class="md-nav__link">
+    running as agent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleanup-configuration" class="md-nav__link">
+    cleanup configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trying-kube-router-as-alternative-to-kube-proxy" class="md-nav__link">
+    trying kube-router as alternative to kube-proxy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advertising-ips" class="md-nav__link">
+    Advertising IPs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hairpin-mode" class="md-nav__link">
+    Hairpin Mode
+  </a>
+  
+    <nav class="md-nav" aria-label="Hairpin Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hairpin-mode-example" class="md-nav__link">
+    Hairpin Mode Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snating-service-traffic" class="md-nav__link">
+    SNATing Service Traffic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-balancing-scheduling-algorithms" class="md-nav__link">
+    Load balancing Scheduling Algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostport-support" class="md-nav__link">
+    HostPort support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipvs-graceful-termination-support" class="md-nav__link">
+    IPVS Graceful termination support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mtu" class="md-nav__link">
+    MTU
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bgp-configuration" class="md-nav__link">
+    BGP configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    Metrics
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Operations Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Operations Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Operations Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../health/" class="md-nav__link">
+        Health
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metrics/" class="md-nav__link">
+        Metrics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Observability/" class="md-nav__link">
+        Observability
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../troubleshoot/" class="md-nav__link">
+        Troubleshoot
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../pod-toolbox/" class="md-nav__link">
+        Pod tool box
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/" class="md-nav__link">
+        Upgrading
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_6">
+          Deploying
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Deploying" data-md-level="1">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          Deploying
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kops/" class="md-nav__link">
+        kops
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../kubeadm/" class="md-nav__link">
+        kubeadm
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../developing/" class="md-nav__link">
+        Developing
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#try-kube-router-with-cluster-installers" class="md-nav__link">
+    Try Kube-router with cluster installers
+  </a>
+  
+    <nav class="md-nav" aria-label="Try Kube-router with cluster installers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kops" class="md-nav__link">
+    kops
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bootkube" class="md-nav__link">
+    bootkube
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kubeadm" class="md-nav__link">
+    kubeadm
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#k0sproject" class="md-nav__link">
+    k0sproject
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generic" class="md-nav__link">
+    generic
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#amazon-specific-notes" class="md-nav__link">
+    Amazon specific notes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    deployment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-options" class="md-nav__link">
+    command line options
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requirements" class="md-nav__link">
+    requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-as-daemonset" class="md-nav__link">
+    running as daemonset
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-as-agent" class="md-nav__link">
+    running as agent
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cleanup-configuration" class="md-nav__link">
+    cleanup configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trying-kube-router-as-alternative-to-kube-proxy" class="md-nav__link">
+    trying kube-router as alternative to kube-proxy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advertising-ips" class="md-nav__link">
+    Advertising IPs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hairpin-mode" class="md-nav__link">
+    Hairpin Mode
+  </a>
+  
+    <nav class="md-nav" aria-label="Hairpin Mode">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hairpin-mode-example" class="md-nav__link">
+    Hairpin Mode Example
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#snating-service-traffic" class="md-nav__link">
+    SNATing Service Traffic
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#load-balancing-scheduling-algorithms" class="md-nav__link">
+    Load balancing Scheduling Algorithms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hostport-support" class="md-nav__link">
+    HostPort support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ipvs-graceful-termination-support" class="md-nav__link">
+    IPVS Graceful termination support
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mtu" class="md-nav__link">
+    MTU
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bgp-configuration" class="md-nav__link">
+    BGP configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#metrics" class="md-nav__link">
+    Metrics
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+
+<h1 id="user-guide">User Guide</h1>
+<h2 id="try-kube-router-with-cluster-installers">Try Kube-router with cluster installers</h2>
+<p>The best way to get started is to deploy Kubernetes with Kube-router is with a cluster installer.</p>
+<h3 id="kops">kops</h3>
+<p>Please see the <a href="https://github.com/cloudnativelabs/kube-router/blob/master/docs/kops.md">steps</a> to deploy Kubernetes cluster with Kube-router using <a href="https://github.com/kubernetes/kops">Kops</a></p>
+<h3 id="bootkube">bootkube</h3>
+<p>Please see the <a href="https://github.com/cloudnativelabs/kube-router/tree/master/contrib/bootkube">steps</a> to deploy Kubernetes cluster with Kube-router using <a href="https://github.com/kubernetes-incubator/bootkube">bootkube</a></p>
+<h3 id="kubeadm">kubeadm</h3>
+<p>Please see the <a href="https://github.com/cloudnativelabs/kube-router/blob/master/docs/kubeadm.md">steps</a> to deploy Kubernetes cluster with Kube-router using <a href="https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/">Kubeadm</a></p>
+<h3 id="k0sproject">k0sproject</h3>
+<p>k0s by default uses kube-router as a CNI option.
+Please see the <a href="https://docs.k0sproject.io/latest/install/">steps</a> to deploy Kubernetes cluster with Kube-router using <a href="https://docs.k0sproject.io/">k0s</a></p>
+<h3 id="generic">generic</h3>
+<p>Please see the <a href="https://github.com/cloudnativelabs/kube-router/blob/master/docs/generic.md">steps</a> to deploy kube-router on manually installed clusters</p>
+<h3 id="amazon-specific-notes">Amazon specific notes</h3>
+<p>When running in an AWS environment that requires an explicit proxy you need to inject the proxy server as a <a href="https://kubernetes.io/docs/tasks/inject-data-application/define-environment-variable-container/">environment variable</a> in your kube-router deployment</p>
+<p>Example:</p>
+<pre><code>env:
+- name: HTTP_PROXY
+  value: "http://proxy.example.com:80"
+</code></pre>
+<h2 id="deployment">deployment</h2>
+<p>Depending on what functionality of kube-router you want to use, multiple deployment options are possible. You can use the flags <code>--run-firewall</code>, <code>--run-router</code>, <code>--run-service-proxy</code> to selectively enable only required functionality of kube-router.</p>
+<p>Also you can choose to run kube-router as agent running on each cluster node. Alternativley you can run kube-router as pod on each node through daemonset.</p>
+<h2 id="command-line-options">command line options</h2>
+<pre><code>Usage of kube-router:
+      --advertise-cluster-ip                          Add Cluster IP of the service to the RIB so that it gets advertises to the BGP peers.
+      --advertise-external-ip                         Add External IP of service to the RIB so that it gets advertised to the BGP peers.
+      --advertise-loadbalancer-ip                     Add LoadbBalancer IP of service status as set by the LB provider to the RIB so that it gets advertised to the BGP peers.
+      --advertise-pod-cidr                            Add Node's POD cidr to the RIB so that it gets advertised to the BGP peers. (default true)
+      --auto-mtu                                      Auto detect and set the largest possible MTU for kube-bridge and pod interfaces (also accounts for IPIP overlay network when enabled). (default true)
+      --bgp-graceful-restart                          Enables the BGP Graceful Restart capability so that routes are preserved on unexpected restarts
+      --bgp-graceful-restart-deferral-time duration   BGP Graceful restart deferral time according to RFC4724 4.1, maximum 18h. (default 6m0s)
+      --bgp-graceful-restart-time duration            BGP Graceful restart time according to RFC4724 3, maximum 4095s. (default 1m30s)
+      --bgp-holdtime duration                         This parameter is mainly used to modify the holdtime declared to BGP peer. When Kube-router goes down abnormally, the local saving time of BGP route will be affected. Holdtime must be in the range 3s to 18h12m16s. (default 1m30s)
+      --bgp-port uint32                               The port open for incoming BGP connections and to use for connecting with other BGP peers. (default 179)
+      --cache-sync-timeout duration                   The timeout for cache synchronization (e.g. '5s', '1m'). Must be greater than 0. (default 1m0s)
+      --cleanup-config                                Cleanup iptables rules, ipvs, ipset configuration and exit.
+      --cluster-asn uint                              ASN number under which cluster nodes will run iBGP.
+      --disable-source-dest-check                     Disable the source-dest-check attribute for AWS EC2 instances. When this option is false, it must be set some other way. (default true)
+      --enable-cni                                    Enable CNI plugin. Disable if you want to use kube-router features alongside another CNI plugin. (default true)
+      --enable-ibgp                                   Enables peering with nodes with the same ASN, if disabled will only peer with external BGP peers (default true)
+      --enable-overlay                                When enable-overlay is set to true, IP-in-IP tunneling is used for pod-to-pod networking across nodes in different subnets. When set to false no tunneling is used and routing infrastructure is expected to route traffic for pod-to-pod networking across nodes in different subnets (default true)
+      --enable-pod-egress                             SNAT traffic from Pods to destinations outside the cluster. (default true)
+      --enable-pprof                                  Enables pprof for debugging performance and memory leak issues.
+      --excluded-cidrs strings                        Excluded CIDRs are used to exclude IPVS rules from deletion.
+      --hairpin-mode                                  Add iptables rules for every Service Endpoint to support hairpin traffic.
+      --health-port uint16                            Health check port, 0 = Disabled (default 20244)
+  -h, --help                                          Print usage information.
+      --hostname-override string                      Overrides the NodeName of the node. Set this if kube-router is unable to determine your NodeName automatically.
+      --iptables-sync-period duration                 The delay between iptables rule synchronizations (e.g. '5s', '1m'). Must be greater than 0. (default 5m0s)
+      --ipvs-graceful-period duration                 The graceful period before removing destinations from IPVS services (e.g. '5s', '1m', '2h22m'). Must be greater than 0. (default 30s)
+      --ipvs-graceful-termination                     Enables the experimental IPVS graceful terminaton capability
+      --ipvs-permit-all                               Enables rule to accept all incoming traffic to service VIP's on the node. (default true)
+      --ipvs-sync-period duration                     The delay between ipvs config synchronizations (e.g. '5s', '1m', '2h22m'). Must be greater than 0. (default 5m0s)
+      --kubeconfig string                             Path to kubeconfig file with authorization information (the master location is set by the master flag).
+      --masquerade-all                                SNAT all traffic to cluster IP/node port.
+      --master string                                 The address of the Kubernetes API server (overrides any value in kubeconfig).
+      --metrics-path string                           Prometheus metrics path (default &quot;/metrics&quot;)
+      --metrics-port uint16                           Prometheus metrics port, (Default 0, Disabled)
+      --nodeport-bindon-all-ip                        For service of NodePort type create IPVS service that listens on all IP's of the node.
+      --nodes-full-mesh                               Each node in the cluster will setup BGP peering with rest of the nodes. (default true)
+      --overlay-type string                           Possible values: subnet,full - When set to &quot;subnet&quot;, the default, default &quot;--enable-overlay=true&quot; behavior is used. When set to &quot;full&quot;, it changes &quot;--enable-overlay=true&quot; default behavior so that IP-in-IP tunneling is used for pod-to-pod networking across nodes regardless of the subnet the nodes are in. (default &quot;subnet&quot;)
+      --override-nexthop                              Override the next-hop in bgp routes sent to peers with the local ip.
+      --peer-router-asns uints                        ASN numbers of the BGP peer to which cluster nodes will advertise cluster ip and node's pod cidr. (default [])
+      --peer-router-ips ipSlice                       The ip address of the external router to which all nodes will peer and advertise the cluster ip and pod cidr's. (default [])
+      --peer-router-multihop-ttl uint8                Enable eBGP multihop supports -- sets multihop-ttl. (Relevant only if ttl &gt;= 2)
+      --peer-router-passwords strings                 Password for authenticating against the BGP peer defined with &quot;--peer-router-ips&quot;.
+      --peer-router-passwords-file string             Path to file containing password for authenticating against the BGP peer defined with &quot;--peer-router-ips&quot;. --peer-router-passwords will be preferred if both are set.
+      --peer-router-ports uints                       The remote port of the external BGP to which all nodes will peer. If not set, default BGP port (179) will be used. (default [])
+      --router-id string                              BGP router-id. Must be specified in a ipv6 only cluster.
+      --routes-sync-period duration                   The delay between route updates and advertisements (e.g. '5s', '1m', '2h22m'). Must be greater than 0. (default 5m0s)
+      --run-firewall                                  Enables Network Policy -- sets up iptables to provide ingress firewall for pods. (default true)
+      --run-router                                    Enables Pod Networking -- Advertises and learns the routes to Pods via iBGP. (default true)
+      --run-service-proxy                             Enables Service Proxy -- sets up IPVS for Kubernetes Services. (default true)
+      --runtime-endpoint string                       Path to CRI compatible container runtime socket (used for DSR mode). Currently known working with containerd.
+      --service-cluster-ip-range string               CIDR value from which service cluster IPs are assigned. Default: 10.96.0.0/12 (default &quot;10.96.0.0/12&quot;)
+      --service-external-ip-range strings             Specify external IP CIDRs that are used for inter-cluster communication (can be specified multiple times)
+      --service-node-port-range string                NodePort range specified with either a hyphen or colon (default &quot;30000-32767&quot;)
+  -v, --v string                                      log level for V logs (default &quot;0&quot;)
+  -V, --version                                       Print version information.
+</code></pre>
+<h2 id="requirements">requirements</h2>
+<ul>
+<li>
+<p>Kube-router need to access kubernetes API server to get information on pods, services, endpoints, network policies etc. The very minimum information it requires is the details on where to access the kubernetes API server. This information can be passed as <code>kube-router --master=http://192.168.1.99:8080/</code> or <code>kube-router --kubeconfig=&lt;path to kubeconfig file&gt;</code>.</p>
+</li>
+<li>
+<p>If you run kube-router as agent on the node, ipset package must be installed on each of the nodes (when run as daemonset, container image is prepackaged with ipset)</p>
+</li>
+<li>
+<p>If you choose to use kube-router for pod-to-pod network connectivity then Kubernetes controller manager need to be configured to allocate pod CIDRs by passing <code>--allocate-node-cidrs=true</code> flag and providing a <code>cluster-cidr</code> (i.e. by passing --cluster-cidr=10.1.0.0/16 for e.g.)</p>
+</li>
+<li>
+<p>If you choose to run kube-router as daemonset in Kubernetes version below v1.15, both kube-apiserver and kubelet must be run with <code>--allow-privileged=true</code> option. In later Kubernetes versions, only kube-apiserver must be run with <code>--allow-privileged=true</code> option and if PodSecurityPolicy admission controller is enabled, you should create PodSecurityPolicy, allowing privileged kube-router pods.</p>
+</li>
+<li>
+<p>If you choose to use kube-router for pod-to-pod network connecitvity then Kubernetes cluster must be configured to use CNI network plugins. On each node CNI conf file is expected to be present as /etc/cni/net.d/10-kuberouter.conf .<code>bridge</code> CNI plugin and <code>host-local</code> for IPAM should be used. A sample conf file that can be downloaded as <code>wget -O /etc/cni/net.d/10-kuberouter.conf https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/cni/10-kuberouter.conf</code></p>
+</li>
+</ul>
+<h2 id="running-as-daemonset">running as daemonset</h2>
+<p>This is quickest way to deploy kube-router in Kubernetes v1.8+ (<strong>dont forget to ensure the requirements</strong>). Just run</p>
+<pre><code>kubectl apply -f https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/daemonset/kube-router-all-service-daemonset.yaml
+</code></pre>
+<p>Above will run kube-router as pod on each node automatically. You can change the arguments in the daemonset definition as required to suit your needs. Some samples can be found at https://github.com/cloudnativelabs/kube-router/tree/master/daemonset with different argument to select set of the services kube-router should run.</p>
+<h2 id="running-as-agent">running as agent</h2>
+<p>You can choose to run kube-router as agent runnng on each node. For e.g if you just want kube-router to provide ingress firewall for the pods then you can start kube-router as</p>
+<pre><code>kube-router --master=http://192.168.1.99:8080/ --run-firewall=true --run-service-proxy=false --run-router=false
+</code></pre>
+<h2 id="cleanup-configuration">cleanup configuration</h2>
+<p>Please delete kube-router daemonset and then clean up all the configurations done (to ipvs, iptables, ipset, ip routes etc) by kube-router on the node by running below command.</p>
+<pre><code>docker run --privileged --net=host cloudnativelabs/kube-router --cleanup-config
+</code></pre>
+<h2 id="trying-kube-router-as-alternative-to-kube-proxy">trying kube-router as alternative to kube-proxy</h2>
+<p>If you have a kube-proxy in use, and want to try kube-router just for service proxy you can do</p>
+<pre><code>kube-proxy --cleanup-iptables
+</code></pre>
+<p>followed by</p>
+<pre><code>kube-router --master=http://192.168.1.99:8080/ --run-service-proxy=true --run-firewall=false --run-router=false
+</code></pre>
+<p>and if you want to move back to kube-proxy then clean up config done by kube-router by running</p>
+<pre><code> kube-router --cleanup-config
+</code></pre>
+<p>and run kube-proxy with the configuration you have.
+- <a href="/README.md#getting-started">General Setup</a></p>
+<h2 id="advertising-ips">Advertising IPs</h2>
+<p>kube-router can advertise Cluster, External and LoadBalancer IPs to BGP peers.
+It does this by:
+* locally adding the advertised IPs to the nodes' <code>kube-dummy-if</code> network interface
+* advertising the IPs to its BGP peers</p>
+<p>To set the default for all services use the <code>--advertise-cluster-ip</code>,
+<code>--advertise-external-ip</code> and <code>--advertise-loadbalancer-ip</code> flags.</p>
+<p>To selectively enable or disable this feature per-service use the
+<code>kube-router.io/service.advertise.clusterip</code>, <code>kube-router.io/service.advertise.externalip</code>
+and <code>kube-router.io/service.advertise.loadbalancerip</code> annotations.</p>
+<p>e.g.:
+<code>$ kubectl annotate service my-advertised-service "kube-router.io/service.advertise.clusterip=true"</code>
+<code>$ kubectl annotate service my-advertised-service "kube-router.io/service.advertise.externalip=true"</code>
+<code>$ kubectl annotate service my-advertised-service "kube-router.io/service.advertise.loadbalancerip=true"</code></p>
+<p><code>$ kubectl annotate service my-non-advertised-service "kube-router.io/service.advertise.clusterip=false"</code>
+<code>$ kubectl annotate service my-non-advertised-service "kube-router.io/service.advertise.externalip=false"</code>
+<code>$ kubectl annotate service my-non-advertised-service "kube-router.io/service.advertise.loadbalancerip=false"</code></p>
+<p>By combining the flags with the per-service annotations you can choose either
+a opt-in or opt-out strategy for advertising IPs.</p>
+<p>Advertising LoadBalancer IPs works by inspecting the services
+<code>status.loadBalancer.ingress</code> IPs that are set by external LoadBalancers like
+for example MetalLb. This has been successfully tested together with
+<a href="https://github.com/google/metallb">MetalLB</a> in ARP mode.</p>
+<h2 id="hairpin-mode">Hairpin Mode</h2>
+<p>Communication from a Pod that is behind a Service to its own ClusterIP:Port is
+not supported by default.  However, It can be enabled per-service by adding the
+<code>kube-router.io/service.hairpin=</code> annotation, or for all Services in a cluster by
+passing the flag <code>--hairpin-mode=true</code> to kube-router.</p>
+<p>Additionally, the <code>hairpin_mode</code> sysctl option must be set to <code>1</code> for all veth
+interfaces on each node.  This can be done by adding the <code>"hairpinMode": true</code>
+option to your CNI configuration and rebooting all cluster nodes if they are
+already running kubernetes.</p>
+<p>Hairpin traffic will be seen by the pod it originated from as coming from the
+Service ClusterIP if it is logging the source IP.</p>
+<h3 id="hairpin-mode-example">Hairpin Mode Example</h3>
+<p>10-kuberouter.conf</p>
+<pre><code class="language-json">{
+    &quot;name&quot;:&quot;mynet&quot;,
+    &quot;type&quot;:&quot;bridge&quot;,
+    &quot;bridge&quot;:&quot;kube-bridge&quot;,
+    &quot;isDefaultGateway&quot;:true,
+    &quot;hairpinMode&quot;:true,
+    &quot;ipam&quot;: {
+        &quot;type&quot;:&quot;host-local&quot;
+     }
+}
+</code></pre>
+<p>To enable hairpin traffic for Service <code>my-service</code>:</p>
+<pre><code>kubectl annotate service my-service &quot;kube-router.io/service.hairpin=&quot;
+</code></pre>
+<p>If you want to also hairpin externalIPs declared for Service <code>my-service</code> (note, you must also either enable global hairpin or service hairpin (see above ^^^)  for this to have an effect):</p>
+<pre><code>kubectl annotate service my-service &quot;kube-router.io/service.hairpin.externalips=&quot;
+</code></pre>
+<h2 id="snating-service-traffic">SNATing Service Traffic</h2>
+<p>By default, as traffic ingresses into the cluster, kube-router will source nat the traffic to ensure symmetric routing if it needs to proxy that traffic to ensure it gets to a node that has a service pod that is capable of servicing the traffic. This has a potential to cause issues when network policies are applied to that service since now the traffic will appear to be coming from a node in your cluster instead of the traffic originator.</p>
+<p>This is an issue that is common to all proxy's and all Kubernetes service proxies in general. You can read more information about this issue here: https://kubernetes.io/docs/tutorials/services/source-ip/#source-ip-for-services-with-type-nodeport</p>
+<p>In addition to the fix mentioned in the linked upstream documentation (using <code>service.spec.externalTrafficPolicy</code>), kube-router also provides DSR, which by its nature preserves the source IP, to solve this problem. For more information see the section above.</p>
+<h2 id="load-balancing-scheduling-algorithms">Load balancing Scheduling Algorithms</h2>
+<p>Kube-router uses LVS for service proxy. LVS support rich set of <a href="http://kb.linuxvirtualserver.org/wiki/IPVS#Job_Scheduling_Algorithms">scheduling alogirthms</a>. You can annotate 
+the service to choose one of the scheduling alogirthms. When a service is not annotated <code>round-robin</code> scheduler is selected by default</p>
+<pre><code>For least connection scheduling use:
+kubectl annotate service my-service &quot;kube-router.io/service.scheduler=lc&quot;
+
+For round-robin scheduling use:
+kubectl annotate service my-service &quot;kube-router.io/service.scheduler=rr&quot;
+
+For source hashing scheduling use:
+kubectl annotate service my-service &quot;kube-router.io/service.scheduler=sh&quot;
+
+For destination hashing scheduling use:
+kubectl annotate service my-service &quot;kube-router.io/service.scheduler=dh&quot;
+</code></pre>
+<h2 id="hostport-support">HostPort support</h2>
+<p>If you would like to use <code>HostPort</code> functionality below changes are required in the manifest.</p>
+<ul>
+<li>By default kube-router assumes CNI conf file to be <code>/etc/cni/net.d/10-kuberouter.conf</code>. Add an environment variable <code>KUBE_ROUTER_CNI_CONF_FILE</code> to kube-router manifest and set it to <code>/etc/cni/net.d/10-kuberouter.conflist</code></li>
+<li>Modify <code>kube-router-cfg</code> ConfigMap with CNI config that supports <code>portmap</code> as additional plug-in</li>
+</ul>
+<pre><code>    {
+       &quot;cniVersion&quot;:&quot;0.3.0&quot;,
+       &quot;name&quot;:&quot;mynet&quot;,
+       &quot;plugins&quot;:[
+          {
+             &quot;name&quot;:&quot;kubernetes&quot;,
+             &quot;type&quot;:&quot;bridge&quot;,
+             &quot;bridge&quot;:&quot;kube-bridge&quot;,
+             &quot;isDefaultGateway&quot;:true,
+             &quot;ipam&quot;:{
+                &quot;type&quot;:&quot;host-local&quot;
+             }
+          },
+          {
+             &quot;type&quot;:&quot;portmap&quot;,
+             &quot;capabilities&quot;:{
+                &quot;snat&quot;:true,
+                &quot;portMappings&quot;:true
+             }
+          }
+       ]
+    }
+</code></pre>
+<ul>
+<li>Update init container command to create <code>/etc/cni/net.d/10-kuberouter.conflist</code> file</li>
+<li>Restart the container runtime</li>
+</ul>
+<p>For an e.g manifest please look at <a href="../manifests/kubeadm-kuberouter-all-features-hostport.yaml">manifest</a> with necessary changes required for <code>HostPort</code> functionality.</p>
+<h2 id="ipvs-graceful-termination-support">IPVS Graceful termination support</h2>
+<p>As of 0.2.6 we support experimental graceful termination of IPVS destinations. When possible the pods's TerminationGracePeriodSeconds is used, if it cannot be retrived for some reason
+the fallback period is 30 seconds and can be adjusted with <code>--ipvs-graceful-period</code> cli-opt</p>
+<p>graceful termination works in such a way that when kube-router receives a delete endpoint notification for a service it's weight is adjusted to 0 before getting deleted after he termination grace period has passed or the Active &amp; Inactive connections goes down to 0.</p>
+<h2 id="mtu">MTU</h2>
+<p>The maximum transmission unit (MTU) determines the largest packet size that can be transmitted through your network. MTU for the pod interfaces should be set appropriately to prevent fragmentation and packet drops thereby achieving maximum performance. If <code>auto-mtu</code> is set to true (<code>auto-mtu</code> is set to true by default as of kube-router 1.1), kube-router will determine right MTU for both <code>kube-bridge</code> and pod interfaces. If you set <code>auto-mtu</code> to false kube-router will not attempt to configure MTU. However you can choose the right MTU and set in the <code>cni-conf.json</code> section of the <code>10-kuberouter.conflist</code> in the kube-router <a href="manifests/">daemonsets</a>. For e.g.</p>
+<pre><code>  cni-conf.json: |
+    {
+       &quot;cniVersion&quot;:&quot;0.3.0&quot;,
+       &quot;name&quot;:&quot;mynet&quot;,
+       &quot;plugins&quot;:[
+          {
+             &quot;name&quot;:&quot;kubernetes&quot;,
+             &quot;type&quot;:&quot;bridge&quot;,
+             &quot;mtu&quot;: 1400,
+             &quot;bridge&quot;:&quot;kube-bridge&quot;,
+             &quot;isDefaultGateway&quot;:true,
+             &quot;ipam&quot;:{
+                &quot;type&quot;:&quot;host-local&quot;
+             }
+          }
+       ]
+    }
+</code></pre>
+<p>If you set MTU yourself via the CNI config, you'll also need to set MTU of <code>kube-bridge</code> manually to the right value to avoid packet fragmentation in case of existing nodes on which <code>kube-bridge</code> is already created. On node reboot or in case of new nodes joining the cluster both the pod's interface and <code>kube-bridge</code> will be setup with specified MTU value.</p>
+<h2 id="bgp-configuration">BGP configuration</h2>
+<p><a href="../bgp/">Configuring BGP Peers</a></p>
+<h2 id="metrics">Metrics</h2>
+<p><a href="../metrics/">Configure metrics gathering</a></p>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../bgp/" class="md-footer__link md-footer__link--prev" aria-label="Previous: BGP" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              BGP
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../health/" class="md-footer__link md-footer__link--next" aria-label="Next: Health" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Health
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>
