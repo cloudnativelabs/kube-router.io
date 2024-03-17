@@ -2,6 +2,7 @@ IN_DOCKER_GROUP=$(filter docker,$(shell groups))
 DOCKER=$(if $(or $(IN_DOCKER_GROUP),$(IS_ROOT),$(OSX)),docker,sudo docker)
 CURRENT_UID=$(shell id -u)
 CURRENT_GID=$(shell id -g)
+RUBY_VERSION=3.3
 
 all: build_jekyll build_mkdocs cleanup_docs
 
@@ -31,10 +32,13 @@ cleanup_docs:
 serve: build_mkdocs cleanup_docs
 	$(DOCKER) run -ti -v $(PWD):/srv/jekyll --rm --publish [::1]:4000:4000 jekyll/builder jekyll serve
 
+update-gems:
+	$(DOCKER) run -ti -v $(PWD):/build --rm -w /build ruby:$(RUBY_VERSION) bundle update
+
 #all:
 #	jekyll build
 #	mkdocs build --site-dir kube-router/docs -d _site/docs
 
-.PHONY: build_jekyll build_mkdocs checkout_kube_router_docs cleanup_docs serve
+.PHONY: build_jekyll build_mkdocs checkout_kube_router_docs cleanup_docs serve update-gems
 
 .DEFAULT: all
