@@ -84,6 +84,10 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         - name: KUBE_ROUTER_CNI_CONF_FILE
           value: /etc/cni/net.d/10-kuberouter.conflist
         livenessProbe:
@@ -130,7 +134,10 @@ spec:
             TMP=/var/lib/kube-router/.tmp-kubeconfig;
             cp /etc/kube-router/kubeconfig ${TMP};
             mv ${TMP} /var/lib/kube-router/kubeconfig;
-          fi
+          fi;
+          if [ -x /usr/local/bin/cni-install ]; then
+            /usr/local/bin/cni-install;
+          fi;
         volumeMounts:
         - mountPath: /etc/cni/net.d
           name: cni-conf-dir
@@ -138,7 +145,10 @@ spec:
           name: kube-router-cfg
         - name: kubeconfig
           mountPath: /var/lib/kube-router
+        - name: host-opt
+          mountPath: /opt
       hostNetwork: true
+      hostPID: true
       tolerations:
       - effect: NoSchedule
         operator: Exists
@@ -163,6 +173,9 @@ spec:
         hostPath:
           path: /run/xtables.lock
           type: FileOrCreate
+      - name: host-opt
+        hostPath:
+          path: /opt
 
 ---
 apiVersion: v1
@@ -202,6 +215,28 @@ rules:
     - extensions
     resources:
       - networkpolicies
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - "coordination.k8s.io"
+    resources:
+      - leases
+    verbs:
+      - get
+      - create
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - services/status
+    verbs:
+      - update
+  - apiGroups:
+      - "discovery.k8s.io"
+    resources:
+      - endpointslices
     verbs:
       - get
       - list
