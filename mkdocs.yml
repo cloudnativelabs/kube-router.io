@@ -1,8 +1,9 @@
+---
 # Project information
-site_name: Kube-router
-site_description: "Kube-router: a turnkey Kubernetes networking solution"
-site_author: "Kube-router Project"
-site_url: https://github.com/cloudnativelabs/kube-router
+site_name: kube-router
+site_description: "kube-router: a turnkey Kubernetes networking solution"
+site_author: "kube-router Project"
+site_url: https://kube-router.io/docs
 
 
 # Repository
@@ -19,20 +20,28 @@ nav:
   - Overview: index.md
   - Introduction: introduction.md
   - Concepts:
-    - See it in Action: see-it-in-action.md
-    - Architecture: architecture.md
-    - How it works: how-it-works.md
-    - DSR: dsr.md
-    - BGP: bgp.md
+      - See it in Action: see-it-in-action.md
+      - Architecture: architecture.md
+      - How it works: how-it-works.md
+      - DSR: dsr.md
+      - BGP: bgp.md
+      - IPv6: ipv6.md
+      - Load Balancer Allocator: load-balancer-allocator.md
   - User Guide: user-guide.md
   - Operations Guide:
-    - Health: health.md
-    - Metrics: metrics.md
-    - Observability: Observability.md
-    - Troubleshoot: troubleshoot.md
-    - Pod tool box: pod-toolbox.md
-    - Upgrading: upgrading.md
+      - Health: health.md
+      - Metrics: metrics.md
+      - Observability: observability.md
+      - Troubleshoot: troubleshoot.md
+      - Pod tool box: pod-toolbox.md
+      - Upgrading: upgrading.md
+      - Tunneling: tunnels.md
   - Deploying:
-    - kops: kops.md
-    - kubeadm: kubeadm.md
+      - kops: kops.md
+      - kubeadm: kubeadm.md
+      - generic: generic.md
   - Developing: developing.md
+
+not_in_nav: |
+  /CONTRIBUTING.md
+  /RELEASE.md
