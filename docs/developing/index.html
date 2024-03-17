@@ -6,30 +6,36 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Kube-router: a turnkey Kubernetes networking solution">
+        <meta name="description" content="kube-router: a turnkey Kubernetes networking solution">
       
       
-        <meta name="author" content="Kube-router Project">
+        <meta name="author" content="kube-router Project">
       
       
-        <link rel="canonical" href="https://github.com/cloudnativelabs/kube-router/developing/">
+        <link rel="canonical" href="https://kube-router.io/docs/developing/">
+      
+      
+        <link rel="prev" href="../generic/">
+      
+      
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
     
     
       
-        <title>Developing - Kube-router</title>
+        <title>Developing - kube-router</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.2d9f7617.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
       
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.e6a45f82.min.css">
-        
       
+
+
     
+    
+      
     
     
       
@@ -41,23 +47,18 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
     
     
+    
   </head>
   
   
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+    <body dir="ltr">
   
-    
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
@@ -77,22 +78,25 @@
     
       
 
-<header class="md-header" data-md-component="header">
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Kube-router" class="md-header__button md-logo" aria-label="Kube-router" data-md-component="logo">
+    <a href=".." title="kube-router" class="md-header__button md-logo" aria-label="kube-router" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            Kube-router
+            kube-router
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -106,46 +110,16 @@
     </div>
     
     
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-        </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list"></ol>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    
     
     
       <div class="md-header__source">
         <a href="https://github.com/cloudnativelabs/kube-router" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     kube-router
@@ -175,22 +149,23 @@
                     
 
 
+
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Kube-router" class="md-nav__button md-logo" aria-label="Kube-router" data-md-component="logo">
+    <a href=".." title="kube-router" class="md-nav__button md-logo" aria-label="kube-router" data-md-component="logo">
       
   
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
 
     </a>
-    Kube-router
+    kube-router
   </label>
   
     <div class="md-nav__source">
       <a href="https://github.com/cloudnativelabs/kube-router" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     kube-router
@@ -202,14 +177,19 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href=".." class="md-nav__link">
-        Overview
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
       </a>
     </li>
   
@@ -217,14 +197,19 @@
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../introduction/" class="md-nav__link">
-        Introduction
+        
+  
+  <span class="md-ellipsis">
+    Introduction
+  </span>
+  
+
       </a>
     </li>
   
@@ -232,118 +217,208 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_3">
-          Concepts
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Concepts" data-md-level="1">
-        <label class="md-nav__title" for="__nav_3">
-          <span class="md-nav__icon md-icon"></span>
-          Concepts
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
           
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Concepts
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Concepts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../see-it-in-action/" class="md-nav__link">
-        See it in Action
+        
+  
+  <span class="md-ellipsis">
+    See it in Action
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../architecture/" class="md-nav__link">
-        Architecture
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../how-it-works/" class="md-nav__link">
-        How it works
+        
+  
+  <span class="md-ellipsis">
+    How it works
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../dsr/" class="md-nav__link">
-        DSR
+        
+  
+  <span class="md-ellipsis">
+    DSR
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../bgp/" class="md-nav__link">
-        BGP
+        
+  
+  <span class="md-ellipsis">
+    BGP
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ipv6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPv6
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../load-balancer-allocator/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Load Balancer Allocator
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     <li class="md-nav__item">
       <a href="../user-guide/" class="md-nav__link">
-        User Guide
+        
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
       </a>
     </li>
   
@@ -351,208 +426,333 @@
     
       
       
-      
-
+  
   
   
   
     
+    
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_5">
-          Operations Guide
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Operations Guide" data-md-level="1">
-        <label class="md-nav__title" for="__nav_5">
-          <span class="md-nav__icon md-icon"></span>
-          Operations Guide
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
           
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Operations Guide
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Operations Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../health/" class="md-nav__link">
-        Health
+        
+  
+  <span class="md-ellipsis">
+    Health
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../metrics/" class="md-nav__link">
-        Metrics
+        
+  
+  <span class="md-ellipsis">
+    Metrics
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
-      <a href="../Observability/" class="md-nav__link">
-        Observability
+      <a href="../observability/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Observability
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../troubleshoot/" class="md-nav__link">
-        Troubleshoot
+        
+  
+  <span class="md-ellipsis">
+    Troubleshoot
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../pod-toolbox/" class="md-nav__link">
-        Pod tool box
+        
+  
+  <span class="md-ellipsis">
+    Pod tool box
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../upgrading/" class="md-nav__link">
-        Upgrading
+        
+  
+  <span class="md-ellipsis">
+    Upgrading
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tunnels/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tunneling
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
+  
   
   
   
     
+    
+    
+    
     <li class="md-nav__item md-nav__item--nested">
       
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_6" type="checkbox" id="__nav_6" >
-      
-      
-      
-      
-        <label class="md-nav__link" for="__nav_6">
-          Deploying
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <nav class="md-nav" aria-label="Deploying" data-md-level="1">
-        <label class="md-nav__title" for="__nav_6">
-          <span class="md-nav__icon md-icon"></span>
-          Deploying
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
           
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Deploying
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Deploying
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../kops/" class="md-nav__link">
-        kops
+        
+  
+  <span class="md-ellipsis">
+    kops
+  </span>
+  
+
       </a>
     </li>
   
 
-            
-          
+              
             
               
+                
+  
   
   
   
     <li class="md-nav__item">
       <a href="../kubeadm/" class="md-nav__link">
-        kubeadm
+        
+  
+  <span class="md-ellipsis">
+    kubeadm
+  </span>
+  
+
       </a>
     </li>
   
 
+              
             
-          
-        </ul>
-      </nav>
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../generic/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    generic
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
     </li>
   
 
     
       
       
-      
-
   
   
     
   
   
+  
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
         
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Developing
+          
+  
+  <span class="md-ellipsis">
+    Developing
+  </span>
+  
+
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Developing
+        
+  
+  <span class="md-ellipsis">
+    Developing
+  </span>
+  
+
       </a>
       
         
@@ -572,29 +772,46 @@
       
         <li class="md-nav__item">
   <a href="#building-kube-router" class="md-nav__link">
-    Building kube-router
+    <span class="md-ellipsis">
+      Building kube-router
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Building kube-router">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#go-version-119-or-above-is-required-to-build-kube-router" class="md-nav__link">
+    <span class="md-ellipsis">
+      Go version 1.19 or above is required to build kube-router
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#building-a-docker-image" class="md-nav__link">
-    Building A Docker Image
+    <span class="md-ellipsis">
+      Building A Docker Image
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#pushing-a-docker-image" class="md-nav__link">
-    Pushing A Docker Image
+    <span class="md-ellipsis">
+      Pushing A Docker Image
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#makefile-options" class="md-nav__link">
-    Makefile Options
+    <span class="md-ellipsis">
+      Makefile Options
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Makefile Options">
@@ -602,7 +819,9 @@
         
           <li class="md-nav__item">
   <a href="#image-options" class="md-nav__link">
-    Image Options
+    <span class="md-ellipsis">
+      Image Options
+    </span>
   </a>
   
 </li>
@@ -619,27 +838,18 @@
       
         <li class="md-nav__item">
   <a href="#release-workflow" class="md-nav__link">
-    Release Workflow
+    <span class="md-ellipsis">
+      Release Workflow
+    </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Release Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#manual-releases" class="md-nav__link">
-    Manual Releases
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#dependency-management" class="md-nav__link">
-    Dependency Management
+    <span class="md-ellipsis">
+      Dependency Management
+    </span>
   </a>
   
 </li>
@@ -680,29 +890,46 @@
       
         <li class="md-nav__item">
   <a href="#building-kube-router" class="md-nav__link">
-    Building kube-router
+    <span class="md-ellipsis">
+      Building kube-router
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Building kube-router">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#go-version-119-or-above-is-required-to-build-kube-router" class="md-nav__link">
+    <span class="md-ellipsis">
+      Go version 1.19 or above is required to build kube-router
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#building-a-docker-image" class="md-nav__link">
-    Building A Docker Image
+    <span class="md-ellipsis">
+      Building A Docker Image
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#pushing-a-docker-image" class="md-nav__link">
-    Pushing A Docker Image
+    <span class="md-ellipsis">
+      Pushing A Docker Image
+    </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#makefile-options" class="md-nav__link">
-    Makefile Options
+    <span class="md-ellipsis">
+      Makefile Options
+    </span>
   </a>
   
     <nav class="md-nav" aria-label="Makefile Options">
@@ -710,7 +937,9 @@
         
           <li class="md-nav__item">
   <a href="#image-options" class="md-nav__link">
-    Image Options
+    <span class="md-ellipsis">
+      Image Options
+    </span>
   </a>
   
 </li>
@@ -727,27 +956,18 @@
       
         <li class="md-nav__item">
   <a href="#release-workflow" class="md-nav__link">
-    Release Workflow
+    <span class="md-ellipsis">
+      Release Workflow
+    </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Release Workflow">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#manual-releases" class="md-nav__link">
-    Manual Releases
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#dependency-management" class="md-nav__link">
-    Dependency Management
+    <span class="md-ellipsis">
+      Dependency Management
+    </span>
   </a>
   
 </li>
@@ -760,61 +980,75 @@
               </div>
             
           
-          <div class="md-content" data-md-component="content">
-            <article class="md-content__inner md-typeset">
-              
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
                 
+                  
 
 
 <h1 id="developers-guide">Developer's Guide</h1>
 <p>We aim to make local development and testing as straightforward as possible. For
-basic guidelines around contributing, see the <a href="/CONTRIBUTING.md">CONTRIBUTING</a> document.</p>
+basic guidelines around contributing, see the <a href="/docs/CONTRIBUTING/">CONTRIBUTING</a> document.</p>
 <p>There are a number of automation tools available to help with testing and
 building your changes, detailed below.</p>
 <h2 id="building-kube-router">Building kube-router</h2>
-<p><strong>Go version 1.13 or above is required to build kube-router</strong></p>
-<p>All the dependencies are specified as Go modules and will be fetched into your cache, so just run <code>make</code> or <code>go build -o kube-router kube-router.go</code> to build.</p>
+<h3 id="go-version-119-or-above-is-required-to-build-kube-router">Go version 1.19 or above is required to build kube-router</h3>
+<p>All the dependencies are specified as Go modules and will be fetched into your cache, so just run <code>make kube-router</code> or
+<code>go build pkg/cmd/kube-router.go</code> to build.</p>
 <h3 id="building-a-docker-image">Building A Docker Image</h3>
 <p>Running <code>make container</code> will compile kube-router (if needed) and build a Docker
 image.  By default the container will be tagged with the last release version,
 and current commit ID.</p>
 <p>For example:</p>
-<pre><code class="language-console">$ make container
-docker build -t &quot;cloudnativelabs/kube-router-git:0.0.4-22-gd782e89-dirty-build-release&quot;
-Sending build context to Docker daemon  151.5MB
-Step 1/4 : FROM alpine
- ---&gt; a41a7446062d
-Step 2/4 : RUN apk add --no-cache iptables ipset
+<pre><code class="language-sh">$ make container
+Building for GOARCH=amd64
+Verifying kube-router gobgp for ARCH=x86-64 ...
+Starting kube-router container image build for amd64 on amd64
+docker build -t &quot;cloudnativelabs/kube-router-git:amd64-bug_fixes_for_v2.0.0&quot; -f Dockerfile --build-arg ARCH=&quot;&quot; \
+        --build-arg BUILDTIME_BASE=&quot;golang:1.20.9-alpine3.18&quot; --build-arg RUNTIME_BASE=&quot;alpine:3.18&quot; .
+Sending build context to Docker daemon  198.6MB
+Step 1/19 : ARG BUILDTIME_BASE=golang:1-alpine
+Step 2/19 : ARG RUNTIME_BASE=alpine:latest
+Step 3/19 : FROM ${BUILDTIME_BASE} as builder
+ ---&gt; 6cbc3ac54aa3
+Step 4/19 : ENV BUILD_IN_DOCKER=false
  ---&gt; Using cache
- ---&gt; 30e25a7640de
-Step 3/4 : COPY kube-router /
- ---&gt; Using cache
- ---&gt; c06f78fd02e8
-Step 4/4 : ENTRYPOINT /kube-router
- ---&gt; Using cache
- ---&gt; 5cfcfe54623e
-Successfully built 5cfcfe54623e
-Successfully tagged cloudnativelabs/kube-router-git:0.0.4-22-gd782e89-dirty-build-release
+ ---&gt; aec11cc4a0cd
+
+...
+
+Removing intermediate container 371a162930f5
+ ---&gt; 1d3f742d559e
+Step 19/19 : ENTRYPOINT [&quot;/usr/local/bin/kube-router&quot;]
+ ---&gt; Running in d5ea6fda9fe4
+Removing intermediate container d5ea6fda9fe4
+ ---&gt; 17cfbc77e293
+[Warning] One or more build-args [ARCH] were not consumed
+Successfully built 17cfbc77e293
+Successfully tagged cloudnativelabs/kube-router-git:amd64-bug_fixes_for_v2.0.0
+Finished kube-router container image build.
 </code></pre>
-<p>The <code>-dirty</code> part of the tag means there are uncommitted changes in your local
-git repo.</p>
+<p>The following describes the rest of the portions of the container naming convention</p>
+<ul>
+<li><code>kube-router-git</code> indicates that the container was built from git and not from a tag.</li>
+<li><code>amd64</code> indicates that it was built for the <code>amd64</code> architecture</li>
+<li><code>bug_fixes_for_v2.0.0</code> indicates the branch that the user was on when it was built</li>
+</ul>
 <h3 id="pushing-a-docker-image">Pushing A Docker Image</h3>
-<p>Running <code>make push</code> will push your container image to a Docker registry.  The
-default configuration will use the Docker Hub repository for the official
-kube-router images, cloudnativelabs/kube-router. You can push to a different
+<p>Running <code>make push</code> will push your container image to a Docker registry.  The default configuration will use the
+Docker Hub repository for the official kube-router images, cloudnativelabs/kube-router. You can push to a different
 repository by changing a couple settings, as described in <a href="#image-options">Image Options</a>
 below.</p>
 <h3 id="makefile-options">Makefile Options</h3>
-<p>There are several variables which can be modified in the Makefile to customize
-your builds. They are specified after your make command like this: <code>make OPTION=VALUE</code>.
-These options can also be set in your environment variables.
-For more details beyond the scope of this document, see the
-<a href="/Makefile">Makefile</a> and run <code>make help</code>.</p>
+<p>There are several variables which can be modified in the Makefile to customize your builds. They are specified after
+your make command like this: <code>make OPTION=VALUE</code>. These options can also be set in your environment variables.</p>
+<p>For more details beyond the scope of this document, see the Makefile and run <code>make help</code>.</p>
 <h4 id="image-options">Image Options</h4>
 <p>You can configure the name and tag of the Docker image with a few variables
 passed to <code>make container</code> and <code>make push</code>.</p>
 <p>Example:</p>
-<pre><code class="language-console">$ make container IMG_FQDN=quay.io IMG_NAMESPACE=bzub IMG_TAG=custom
+<pre><code class="language-sh">$ make container IMG_FQDN=quay.io IMG_NAMESPACE=bzub IMG_TAG=custom
 docker build -t &quot;quay.io/bzub/kube-router-git:custom&quot; .
 Sending build context to Docker daemon  151.5MB
 Step 1/4 : FROM alpine
@@ -850,75 +1084,33 @@ Successfully tagged quay.io/bzub/kube-router-git:custom
   Example (DEV-SUFFIX=master-latest): quay.io/cloudnativelabs/kube-router-git:master-latest</li>
 </ul>
 <h2 id="release-workflow">Release Workflow</h2>
-<p>These instructions show how official kube-router releases are performed.</p>
-<p>First, you must tag a git commit with the release version.
-This will cause the CI system to:
-- Build kube-router
-- Build a Docker image with ${VERSION} and <code>latest</code> tags
-- Push the Docker image to the official registry
-- Submits a draft release to GitHub</p>
-<p>Example:</p>
-<pre><code>VERSION=v0.5.0
-git tag -a ${VERSION} -m &quot;Brief release note&quot; &amp;&amp; git push origin ${VERSION}
-</code></pre>
-<p>Then the only thing left to do is edit the release notes on the GitHub release
-and publish it.</p>
-<h3 id="manual-releases">Manual Releases</h3>
-<p>These instructions show how To perform a custom or test release outside of the
-CI system, using a local git commit.</p>
-<p>First tag a commit:</p>
-<pre><code>VERSION=v0.5.0_bzub
-git tag -a ${VERSION} -m &quot;Brief release note&quot;
-</code></pre>
-<p>Then you can provide
-<a href="#makefile-options">options</a> to <code>make release</code>.</p>
-<p>This does the following:
-- Builds kube-router
-- Builds a Docker image
-- Tags the image with the current git commit's tag
-- Tags the image with <code>latest</code>
-- Pushes the image to a docker registry</p>
-<p>If you'd like to test the GitHub release functionality as well, you will need to
-pass in the <code>GITHUB_TOKEN</code> variable with a value of an API token you've
-<a href="https://github.com/settings/tokens/new">generated</a>. This Access Token must have
-the "repo" OAuth scope enabled.</p>
-<p>NOTE: For added security when running a command that contains secure
-credentials, add a space before the entire command to prevent it from being
-added to your shell history file.</p>
-<p>Example:</p>
-<pre><code class="language-console">$  make release IMG_FQDN=quay.io IMG_NAMESPACE=bzub GITHUB_TOKEN=b1ahbl1ahb1ahba1hahb1ah
-</code></pre>
+<p>See <a href="/docs/RELEASE/">Release Documentation</a> for more information</p>
 <h2 id="dependency-management">Dependency Management</h2>
-<p>kube-router uses <code>dep</code> for managing dependencies. Instructions on installing and using dep can be found <a href="https://golang.github.io/dep/docs/introduction.html">here</a>. </p>
+<p>kube-router uses go modules for managing dependencies see <a href="https://go.dev/blog/using-go-modules">upstream documentation</a>
+for more information</p>
 
-              
-            </article>
-          </div>
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
       </main>
       
         <footer class="md-footer">
-  
-    <nav class="md-footer__inner md-grid" aria-label="Footer">
-      
-        
-        <a href="../kubeadm/" class="md-footer__link md-footer__link--prev" aria-label="Previous: kubeadm" rel="prev">
-          <div class="md-footer__button md-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
-          </div>
-          <div class="md-footer__title">
-            <div class="md-ellipsis">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              kubeadm
-            </div>
-          </div>
-        </a>
-      
-      
-    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -940,10 +1132,14 @@ added to your shell history file.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="../assets/javascripts/bundle.467223ff.min.js"></script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="../search/main.js"></script>
       
     
   </body>

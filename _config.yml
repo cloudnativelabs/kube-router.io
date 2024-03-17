@@ -1,25 +1,26 @@
+---
 
 # Setup
-title:               Kube-Router
-email:               muralimmreddy@gmail.com
-tagline:             Turnkey Kubernetes networking solution
-url:                 "https://kube-router.io" # insert your site's URL
-baseurl:             ""
+title: kube-router
+email: muralimmreddy@gmail.com
+tagline: Turnkey Kubernetes networking solution
+url: "https://kube-router.io"  # insert your site's URL
+baseurl: ""
 
 # About/contact
-author: # you can edit these to be your personal details
-  name:              Murali Reddy
-  url:               https://in.linkedin.com/in/murali-reddy-3759574
-  email:             muralimmreddy@gmail.com
+author:  # you can edit these to be your personal details
+  name: Murali Reddy
+  url: https://in.linkedin.com/in/murali-reddy-3759574
+  email: muralimmreddy@gmail.com
 
 # Custom vars
-version:             1.4.0
+version: 1.4.0
 github:
-  repo:              https://github.com/kevit/devaid-jekyll-theme
+  repo: https://github.com/kevit/devaid-jekyll-theme
 
 # Build settings
-markdown:     kramdown
-permalink:    pretty
+markdown: kramdown
+permalink: pretty
 
 exclude: [kube-router]
 
