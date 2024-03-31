@@ -983,6 +983,11 @@ When DSR is enabled kube-router will use LVS's tunneling mode to achieve this (m
 <li><code>hostIPC: true</code> must be set for the pod</li>
 <li><code>hostPID: true</code> must be set for the pod</li>
 <li>The container runtime socket must be mounted into the kube-router pod via a <code>hostPath</code> volume mount.</li>
+<li><code>/etc/iproute2/rt_tables</code> (or similar) must be read/write mounted into the kube-router pod via a <code>hostPath</code> volume
+    mount. NOTE: since v6.5.0 of iproute2 this file has been moved underneath <code>/usr</code> in either
+    <code>/usr/lib/iproute2/rt_tables</code> or <code>/usr/share/iproute2/rt_tables</code> instead of in <code>/etc</code> so this mount may need to be
+    updated depending on which version of Linux you're deploying against. kube-router will check all 3 locations and
+    use them in order of the above.</li>
 <li>A pod network that allows for IPIP encapsulated traffic. The most notable exception to this is that Azure does not
   transit IPIP encapsulated packets on their network. In this scenario, the end-user may be able to get around this
   issue by enabling FoU (<code>--overlay-encap=fou</code>) and full overlay networking (<code>--overlay-type=full</code>) options in
@@ -1035,6 +1040,9 @@ spec:
       - name: run
         hostPath:
           path: /var/run/docker.sock
+      - name: rt-tables
+        hostPath:
+          path: /etc/iproute2/rt_tables
       ...
       containers:
       - name: kube-router
@@ -1044,6 +1052,9 @@ spec:
         - name: run
           mountPath: /var/run/docker.sock
           readOnly: true
+        - name: rt-tables
+          mountPath: /etc/iproute2/rt_tables
+          readOnly: false
 ...
 </code></pre>
 <p>For an example manifest please look at the
