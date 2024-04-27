@@ -588,6 +588,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="cleanup configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containerd" class="md-nav__link">
+    <span class="md-ellipsis">
+      containerd
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1182,6 +1206,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="cleanup configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containerd" class="md-nav__link">
+    <span class="md-ellipsis">
+      containerd
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1490,7 +1538,18 @@ firewall for the pods then you can start kube-router as:</p>
 <h2 id="cleanup-configuration">cleanup configuration</h2>
 <p>Please delete kube-router daemonset and then clean up all the configurations done (to ipvs, iptables, ipset, ip routes
 etc) by kube-router on the node by running below command.</p>
-<pre><code class="language-sh">docker run --privileged --net=host cloudnativelabs/kube-router --cleanup-config
+<h3 id="docker">Docker</h3>
+<pre><code class="language-sh">docker run --privileged --net=host \
+--mount type=bind,source=/lib/modules,target=/lib/modules,readonly \
+--mount type=bind,source=/run/xtables.lock,target=/run/xtables.lock,bind-propagation=rshared \
+cloudnativelabs/kube-router /usr/local/bin/kube-router --cleanup-config
+</code></pre>
+<h3 id="containerd">containerd</h3>
+<pre><code class="language-sh">$ ctr image pull docker.io/cloudnativelabs/kube-router:latest
+$ ctr run --privileged -t --net-host \
+--mount type=bind,src=/lib/modules,dst=/lib/modules,options=rbind:ro \
+--mount type=bind,src=/run/xtables.lock,dst=/run/xtables.lock,options=rbind:rw \
+docker.io/cloudnativelabs/kube-router:latest kube-router-cleanup /usr/local/bin/kube-router --cleanup-config
 </code></pre>
 <h2 id="trying-kube-router-as-alternative-to-kube-proxy">trying kube-router as alternative to kube-proxy</h2>
 <p>If you have a kube-proxy in use, and want to try kube-router just for service proxy you can do</p>
