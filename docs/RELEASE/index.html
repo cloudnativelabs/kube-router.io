@@ -835,9 +835,9 @@
 <h2 id="preparing-for-the-release">Preparing for the release</h2>
 <ul>
 <li>Ensure that the Golang release used is still supported. Definition happens currently in
-  Github Workflow.</li>
+  Github Workflow and Makefile.</li>
 <li>Ensure that the Alpine version used in container builds is still supported. Definition happens currently in
-  Github Workflow.</li>
+  Github Workflow and Makefile.</li>
 <li>Ensure that Golang dependencies are updated.
   <code>go list -mod=mod -u -m -f '{{.}}{{if .Indirect}} IAMINDIRECT{{end}}' all | grep -v IAMINDIRECT</code> lists possible
   updates.</li>
@@ -845,7 +845,10 @@
   in Makefile and go.mod.</li>
 <li>Ensure that the Kubernetes object definitions do not contain deprecated object types. Definition currently is in
   kube-router's daemonset folder.</li>
+<li>Ensure GitHub actions are updated:</li>
 </ul>
+<pre><code class="language-sh">dependabot update github_actions cloudnativelabs/kube-router
+</code></pre>
 <h2 id="new-majorminor-release">New major/minor release</h2>
 <ul>
 <li>Create a branch named v$MAJOR.$MINOR from the default branch (currently: master)</li>
