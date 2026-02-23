@@ -2,7 +2,7 @@ IN_DOCKER_GROUP=$(filter docker,$(shell groups))
 DOCKER=$(if $(or $(IN_DOCKER_GROUP),$(IS_ROOT),$(OSX)),docker,sudo docker)
 CURRENT_UID=$(shell id -u)
 CURRENT_GID=$(shell id -g)
-RUBY_VERSION=3.3
+RUBY_VERSION=3.4
 JEKYLL_CLI=jekyll-docker:latest
 
 all: build_container build_jekyll build_mkdocs cleanup_docs

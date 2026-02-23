@@ -1,5 +1,5 @@
 # Make Ruby version configurable
-ARG RUBY_VERSION=3.3
+ARG RUBY_VERSION=3.4
 
 # Use the official Ruby image as the base
 FROM ruby:${RUBY_VERSION}-slim
