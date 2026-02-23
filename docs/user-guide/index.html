@@ -1401,6 +1401,9 @@ required functionality of kube-router.</p>
 <p>Also you can choose to run kube-router as agent running on each cluster node. Alternativley you can run kube-router as
 pod on each node through daemonset.</p>
 <h2 id="command-line-options">command line options</h2>
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable MD013 -->
+
 <pre><code class="language-sh">Usage of kube-router:
       --advertise-cluster-ip                          Add Cluster IP of the service to the RIB so that it gets advertises to the BGP peers.
       --advertise-external-ip                         Add External IP of service to the RIB so that it gets advertised to the BGP peers.
@@ -1472,13 +1475,15 @@ pod on each node through daemonset.</p>
   -v, --v string                                      log level for V logs (default &quot;0&quot;)
   -V, --version                                       Print version information.
 </code></pre>
+<!-- markdownlint-restore -->
+
 <h2 id="requirements">requirements</h2>
 <ul>
 <li>Kube-router need to access kubernetes API server to get information on pods, services, endpoints, network policies
   etc. The very minimum information it requires is the details on where to access the kubernetes API server. This
   information can be passed as:</li>
 </ul>
-<pre><code class="language-sh">kube-router --master=http://192.168.1.99:8080/` or `kube-router --kubeconfig=&lt;path to kubeconfig file&gt;
+<pre><code class="language-sh">kube-router --master=http://192.168.1.99:6443/` or `kube-router --kubeconfig=&lt;path to kubeconfig file&gt;
 </code></pre>
 <ul>
 <li>
@@ -1534,7 +1539,7 @@ arguments used to select a set of the services kube-router should run.</p>
 <h2 id="running-as-agent">running as agent</h2>
 <p>You can choose to run kube-router as agent runnng on each node. For e.g if you just want kube-router to provide ingress
 firewall for the pods then you can start kube-router as:</p>
-<pre><code class="language-sh">kube-router --master=http://192.168.1.99:8080/ --run-firewall=true --run-service-proxy=false --run-router=false
+<pre><code class="language-sh">kube-router --master=http://192.168.1.99:6443/ --run-firewall=true --run-service-proxy=false --run-router=false
 </code></pre>
 <h2 id="cleanup-configuration">cleanup configuration</h2>
 <p>Please delete kube-router daemonset and then clean up all the configurations done (to ipvs, iptables, ipset, ip routes
@@ -1557,7 +1562,7 @@ docker.io/cloudnativelabs/kube-router:latest kube-router-cleanup /usr/local/bin/
 <pre><code class="language-sh">kube-proxy --cleanup-iptables
 </code></pre>
 <p>followed by</p>
-<pre><code class="language-sh">kube-router --master=http://192.168.1.99:8080/ --run-service-proxy=true --run-firewall=false --run-router=false
+<pre><code class="language-sh">kube-router --master=http://192.168.1.99:6443/ --run-service-proxy=true --run-firewall=false --run-router=false
 </code></pre>
 <p>and if you want to move back to kube-proxy then clean up config done by kube-router by running</p>
 <pre><code class="language-sh"> kube-router --cleanup-config
