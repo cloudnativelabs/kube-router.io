@@ -974,11 +974,10 @@ discover &amp; scape kube-router <a href="https://kubernetes.io/docs/concepts/wo
 --metrics-port        uint16 &lt;0-65535&gt;     Prometheus metrics port to use ( default: 0, disabled )
 </code></pre>
 <p>To enable kube-router metrics, start kube-router with <code>--metrics-port</code> and provide a port over 0</p>
-<p>Metrics is generally exported at the same rate as the sync period for each service.</p>
+<p>Metrics is generally exported at the same rate as the sync period for each service. Service metrics are exported real-time.</p>
 <p>The default values unless other specified is</p>
 <ul>
 <li>iptables-sync-period - `1 min``</li>
-<li>ipvs-sync-period - `1 min``</li>
 <li>routes-sync-period - `1 min``</li>
 </ul>
 <p>By enabling
