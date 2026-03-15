@@ -546,15 +546,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#version-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Version notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#available-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       Available metrics
@@ -565,27 +556,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#run-router-true" class="md-nav__link">
+  <a href="#always-enabled" class="md-nav__link">
     <span class="md-ellipsis">
-      run-router = true
+      Always enabled
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-firewalltrue" class="md-nav__link">
+  <a href="#-run-routertrue" class="md-nav__link">
     <span class="md-ellipsis">
-      run-firewall=true
+      --run-router=true
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-service-proxy-true" class="md-nav__link">
+  <a href="#-run-firewalltrue" class="md-nav__link">
     <span class="md-ellipsis">
-      run-service-proxy = true
+      --run-firewall=true
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-run-service-proxytrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      --run-service-proxy=true
     </span>
   </a>
   
@@ -887,15 +887,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#version-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Version notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#available-metrics" class="md-nav__link">
     <span class="md-ellipsis">
       Available metrics
@@ -906,27 +897,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#run-router-true" class="md-nav__link">
+  <a href="#always-enabled" class="md-nav__link">
     <span class="md-ellipsis">
-      run-router = true
+      Always enabled
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-firewalltrue" class="md-nav__link">
+  <a href="#-run-routertrue" class="md-nav__link">
     <span class="md-ellipsis">
-      run-firewall=true
+      --run-router=true
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#run-service-proxy-true" class="md-nav__link">
+  <a href="#-run-firewalltrue" class="md-nav__link">
     <span class="md-ellipsis">
-      run-service-proxy = true
+      --run-firewall=true
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-run-service-proxytrue" class="md-nav__link">
+    <span class="md-ellipsis">
+      --run-service-proxy=true
     </span>
   </a>
   
@@ -967,7 +967,7 @@
 <a href="https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/">annotations</a> needed for
 <a href="https://prometheus.io/">Prometheus</a> to use
 <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#&lt;kubernetes_sd_config&gt;">Kubernetes SD</a> to
-discover &amp; scape kube-router <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod/">pods</a>.</p>
+discover &amp; scrape kube-router <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod/">pods</a>.</p>
 <p>For help with installing Prometheus please see their <a href="https://prometheus.io/docs/introduction/overview/">docs</a></p>
 <p>Metrics options:</p>
 <pre><code class="language-sh">--metrics-path        string               Path to serve Prometheus metrics on ( default: /metrics )
@@ -975,43 +975,69 @@ discover &amp; scape kube-router <a href="https://kubernetes.io/docs/concepts/wo
 </code></pre>
 <p>To enable kube-router metrics, start kube-router with <code>--metrics-port</code> and provide a port over 0</p>
 <p>Metrics is generally exported at the same rate as the sync period for each service. Service metrics are exported real-time.</p>
-<p>The default values unless other specified is</p>
+<p>The default values unless otherwise specified are</p>
 <ul>
-<li>iptables-sync-period - `1 min``</li>
-<li>routes-sync-period - `1 min``</li>
+<li>iptables-sync-period - <code>5 min</code></li>
+<li>routes-sync-period - <code>5 min</code></li>
 </ul>
 <p>By enabling
 <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/#&lt;kubernetes_sd_config&gt;">Kubernetes SD</a> in
-Prometheus configuration &amp; adding required annotations Prometheus can automaticly discover &amp; scrape kube-router metrics</p>
-<h2 id="version-notes">Version notes</h2>
-<p>kube-router v0.2.4 received a metrics overhaul where some metrics were changed into histograms, additional metrics were
-also added. Please make sure you are using the latest dashboard version with versions =&gt; v0.2.4</p>
-<p>kube-router 0.1.0-rc2 and upwards supports the runtime configuration for controlling where to expose the metrics. If
-you are using a older version, metrics path &amp; port is locked to <code>/metrics</code> &amp; <code>8080</code></p>
+your Prometheus configuration &amp; adding the required annotations, Prometheus can automatically discover &amp; scrape
+kube-router metrics.</p>
 <h2 id="available-metrics">Available metrics</h2>
 <p>If metrics is enabled only services that are running have their metrics exposed</p>
-<p>The following metrics is exposed by kube-router prefixed by <code>kube_router_</code></p>
-<h3 id="run-router-true">run-router = true</h3>
+<p>The following metrics are exposed by kube-router prefixed by <code>kube_router_</code></p>
+<h3 id="always-enabled">Always enabled</h3>
 <ul>
-<li>controller_bgp_peers
-  Number of BGP peers of the instance</li>
+<li>build_info
+  Expose version and other build information (labels: goversion, version)</li>
+</ul>
+<h3 id="-run-routertrue">--run-router=true</h3>
+<ul>
+<li>bgp_peer_info
+  BGP peer information: address, state, and type (internal for iBGP and external for eBGP)
+  (labels: address, type, asn, state)</li>
 <li>controller_bgp_advertisements_received
   Total number of BGP advertisements received since kube-router started</li>
 <li>controller_bgp_advertisements_sent
-  Total number of BGP advertisements sent since kube-router started</li>
+  Total number of BGP advertisements sent since kube-router started (labels: type)</li>
 <li>controller_bgp_internal_peers_sync_time
   Time it took for the BGP internal peer sync loop to complete</li>
 <li>controller_routes_sync_time
   Time it took for controller to sync routes</li>
+<li>host_routes_sync_time
+  Time it took for the host routes controller to sync to the system</li>
+<li>host_routes_synced
+  Count of host routes currently synced to the system</li>
+<li>host_routes_added
+  Total count of host routes added to the system</li>
+<li>host_routes_removed
+  Total count of host routes removed from the system</li>
 </ul>
-<h3 id="run-firewalltrue">run-firewall=true</h3>
+<h3 id="-run-firewalltrue">--run-firewall=true</h3>
 <ul>
 <li>controller_iptables_sync_time
   Time it took for the iptables sync loop to complete</li>
+<li>controller_iptables_v4_save_time
+  Time it took controller to save IPv4 rules</li>
+<li>controller_iptables_v6_save_time
+  Time it took for controller to save IPv6 rules</li>
+<li>controller_iptables_v4_restore_time
+  Time it took for controller to restore IPv4 rules</li>
+<li>controller_iptables_v6_restore_time
+  Time it took for controller to restore IPv6 rules</li>
 <li>controller_policy_chains_sync_time
   Time it took for controller to sync policy chains</li>
+<li>controller_policy_ipset_v4_restore_time
+  Time it took for controller to restore IPv4 ipsets</li>
+<li>controller_policy_ipset_v6_restore_time
+  Time it took for controller to restore IPv6 ipsets</li>
+<li>controller_policy_chains
+  Active policy chains (gauge)</li>
+<li>controller_policy_ipsets
+  Active policy ipsets (gauge)</li>
 </ul>
-<h3 id="run-service-proxy-true">run-service-proxy = true</h3>
+<h3 id="-run-service-proxytrue">--run-service-proxy=true</h3>
 <ul>
 <li>controller_ipvs_services_sync_time
   Time it took for the ipvs sync loop to complete</li>
@@ -1022,19 +1048,19 @@ you are using a older version, metrics path &amp; port is locked to <code>/metri
 <li>service_total_connections
   Total connections made to the service since creation</li>
 <li>service_packets_in
-  Total n/o packets received by service</li>
+  Total incoming packets</li>
 <li>service_packets_out
-  Total n/o packets sent by service</li>
+  Total outgoing packets</li>
 <li>service_bytes_in
-  Total bytes received by the service</li>
+  Total incoming bytes</li>
 <li>service_bytes_out
-  Total bytes sent by the service</li>
+  Total outgoing bytes</li>
 <li>service_pps_in
   Incoming packets per second</li>
 <li>service_pps_out
   Outgoing packets per second</li>
 <li>service_cps
-  Connections per second</li>
+  Service connections per second</li>
 <li>service_bps_in
   Incoming bytes per second</li>
 <li>service_bps_out
@@ -1043,7 +1069,7 @@ you are using a older version, metrics path &amp; port is locked to <code>/metri
 <p>To get a grouped list of CPS for each service a Prometheus query could look like this e.g:
 <code>sum(kube_router_service_cps) by (svc_namespace, service_name)</code></p>
 <h2 id="grafana-dashboard">Grafana Dashboard</h2>
-<p>This repo contains a example
+<p>This repo contains an example
 <a href="https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/dashboard/kube-router.json">Grafana dashboard</a>
 utilizing all the above exposed metrics from kube-router.
 <img alt="dashboard" src="https://raw.githubusercontent.com/cloudnativelabs/kube-router/master/dashboard/dashboard.png" /></p>

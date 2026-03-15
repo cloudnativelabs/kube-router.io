@@ -860,14 +860,14 @@
 
 
 <h1 id="pod-toolbox">Pod Toolbox</h1>
-<p>When kube-router is ran as a Pod within your Kubernetes cluster, it also ships
+<p>When kube-router is run as a Pod within your Kubernetes cluster, it also ships
 with a number of tools automatically configured for your cluster.  These can be
 used to troubleshoot issues and learn more about how cluster networking is
 performed.</p>
 <h2 id="logging-in">Logging In</h2>
 <p>Here's a quick way to get going on a random node in your cluster:</p>
 <pre><code class="language-sh">KR_POD=$(basename $(kubectl -n kube-system get pods -l k8s-app=kube-router --output name|head -n1))
-kubectl -n kube-system exec -it ${KR_POD} bash
+kubectl -n kube-system exec -it ${KR_POD} -- bash
 </code></pre>
 <p>Use <code>kubectl -n kube-system get pods -l k8s-app=kube-router -o wide</code> to see what
 nodes are running which pods. This will help if you want to investigate a

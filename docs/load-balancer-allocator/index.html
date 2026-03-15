@@ -937,7 +937,7 @@
 it if needed. The controller doesn't enable any announcement of the addresses by default, so
 <code>--advertise-loadbalancer-ip</code> should be set to true and BGP peers configured.</p>
 <h2 id="load-balancer-classes">Load balancer classes</h2>
-<p>By default the controller allocates addresses for all LoadBalancer services with the where <code>loadBalancerClass</code> is empty
+<p>By default the controller allocates addresses for all LoadBalancer services where <code>loadBalancerClass</code> is empty
 or set to one of "default" or "kube-router". If <code>--loadbalancer-default-class</code> is set to false, the controller will only
 handle services with the class set to "kube-router".</p>
 <h2 id="rbac-permissions">RBAC permissions</h2>
@@ -966,8 +966,8 @@ rules:
       - update
 </code></pre>
 <h2 id="environment-variables">Environment variables</h2>
-<p>The controller uses the environment variable <code>POD_NAME</code> as the identify for the lease used for leader election.
-Using the kubernetes downward api to set <code>POD_NAME</code> to the pod name the lease identify will match the current leader.</p>
+<p>The controller uses the environment variable <code>POD_NAME</code> as the identity for the lease used for leader election.
+Using the kubernetes downward api to set <code>POD_NAME</code> to the pod name the lease identity will match the current leader.</p>
 <pre><code class="language-yaml">---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -998,7 +998,7 @@ By default the namespace is looked up from within the pod using <code>/var/run/s
 <code>POD_NAME</code> should be unique per instance, so using for example the hostname of the machine might be a good idea.
 <code>POD_NAMESPACE</code> must be the same across all instances running in the same cluster.</p>
 <h2 id="notes">Notes</h2>
-<p>It's not possible to specify the addresses for the load balancer services. A externalIP service can be used instead.</p>
+<p>It's not possible to specify the addresses for the load balancer services. An externalIP service can be used instead.</p>
 
 
 

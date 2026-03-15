@@ -22,7 +22,7 @@
     
     
       
-        <title>Contributing to Kube-router - kube-router</title>
+        <title>Contributing to kube-router - kube-router</title>
       
     
     
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Contributing to Kube-router
+              Contributing to kube-router
             
           </span>
         </div>
@@ -772,9 +772,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#filing-issues" class="md-nav__link">
+  <a href="#getting-help" class="md-nav__link">
     <span class="md-ellipsis">
-      Filing issues
+      Getting Help
     </span>
   </a>
   
@@ -791,27 +791,36 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#fork-the-code" class="md-nav__link">
+  <a href="#fork-and-clone" class="md-nav__link">
     <span class="md-ellipsis">
-      Fork the code
+      Fork and Clone
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#creating-a-feature-branch" class="md-nav__link">
+  <a href="#create-a-feature-branch" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating A Feature Branch
+      Create a Feature Branch
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#performing-a-pull-request" class="md-nav__link">
+  <a href="#stay-up-to-date" class="md-nav__link">
     <span class="md-ellipsis">
-      Performing A Pull Request
+      Stay Up-to-Date
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#submit-a-pull-request" class="md-nav__link">
+    <span class="md-ellipsis">
+      Submit a Pull Request
     </span>
   </a>
   
@@ -837,46 +846,59 @@
                   
 
 
-<h1 id="contributing-to-kube-router">Contributing to Kube-router</h1>
+<h1 id="contributing-to-kube-router">Contributing to kube-router</h1>
 <h2 id="summary">Summary</h2>
-<p>This document covers how to contribute to the kube-router project. Kube-router uses github PRs to manage contributions (could be anything from documentation, bug fixes, manifests etc.).</p>
-<p>Please read <a href="/docs/user-guide/">users guide</a> and <a href="/docs/developing/">developers guide</a> for the functionality and internals of kube-router.</p>
-<h2 id="filing-issues">Filing issues</h2>
-<p>If you have a question about Kube-router or have a problem using it, please start with contacting us on <a href="https://kubernetes.slack.com/messages/C8DCQGTSB/">community forum</a> for quick help. If that doesn't answer your questions, or if you think you found a bug, please <a href="https://github.com/cloudnativelabs/kube-router/issues">file an issue</a>.</p>
+<p>This document covers how to contribute to the kube-router project. kube-router uses GitHub pull requests to
+manage contributions (documentation, bug fixes, features, manifests, etc.).</p>
+<p>Please read the <a href="../user-guide/">User Guide</a> and <a href="../developing/">Developer's Guide</a> for
+functionality and internals of kube-router.</p>
+<h2 id="getting-help">Getting Help</h2>
+<p>If you have a question about kube-router or have a problem using it, please start with the
+<a href="https://kubernetes.slack.com/messages/C8DCQGTSB/">#kube-router</a> channel on Kubernetes Slack.
+If that doesn't answer your question, or if you think you found a bug, please
+<a href="https://github.com/cloudnativelabs/kube-router/issues">file an issue</a>.</p>
 <h2 id="contributing-changes">Contributing Changes</h2>
-<h3 id="fork-the-code">Fork the code</h3>
-<p>Navigate to:
-<a href="https://github.com/cloudnativelabs/kube-router">https://github.com/cloudnativelabs/kube-router</a>
-and fork the repository.</p>
-<p>Follow these steps to setup a local repository for working on Kube-router:</p>
-<pre><code class="language-bash">$ git clone https://github.com/YOUR_ACCOUNT/kube-router.git
-$ cd kube-router
-$ git remote add upstream https://github.com/cloudnativelabs/kube-router
-$ git checkout master
-$ git fetch upstream
-$ git rebase upstream/master
+<h3 id="fork-and-clone">Fork and Clone</h3>
+<pre><code class="language-bash">git clone https://github.com/YOUR_ACCOUNT/kube-router.git
+cd kube-router
+git remote add upstream https://github.com/cloudnativelabs/kube-router
+git checkout master
+git fetch upstream
+git rebase upstream/master
 </code></pre>
-<h3 id="creating-a-feature-branch">Creating A Feature Branch</h3>
-<p>Create a new branch to make changes on and that branch.</p>
-<pre><code class="language-bash">$ git checkout -b feature_x
-   (make your changes)
-$ git status
-$ git add .
-$ git commit -a -m &quot;descriptive commit message for your changes&quot;
+<h3 id="create-a-feature-branch">Create a Feature Branch</h3>
+<pre><code class="language-bash">git checkout -b feature_x
 </code></pre>
-<p>get update from upstream</p>
-<pre><code class="language-bash">$ git checkout master
-$ git fetch upstream
-$ git rebase upstream/master
-$ git checkout feature_x
-$ git rebase master
+<p>Make your changes, then ensure they pass formatting, linting, and tests before committing:</p>
+<pre><code class="language-bash">make clean
+make gofmt-fix
+make
 </code></pre>
-<p>Now your <code>feature_x</code> branch is up-to-date with all the code in <code>upstream/master</code>, so push to your fork</p>
-<h3 id="performing-a-pull-request">Performing A Pull Request</h3>
-<pre><code class="language-bash">$ git push origin master
-$ git push origin feature_x
+<p>This project uses <a href="https://www.conventionalcommits.org/en/v1.0.0/">Conventional Commits</a>. Please adopt
+this convention for all commit messages. Use the following scope abbreviations for controller changes:</p>
+<ul>
+<li><strong>NSC</strong> -- Network Services Controller (<code>pkg/controllers/proxy/</code>)</li>
+<li><strong>NRC</strong> -- Network Routes Controller (<code>pkg/controllers/routing/</code>)</li>
+<li><strong>NPC</strong> -- Network Policy Controller (<code>pkg/controllers/netpol/</code>)</li>
+<li><strong>LBC</strong> -- LoadBalancer Controller (<code>pkg/controllers/lballoc/</code>)</li>
+</ul>
+<p>Commit with a descriptive message that explains the <em>why</em>, not just the <em>what</em>:</p>
+<pre><code class="language-bash">git add .
+git commit -m &quot;fix(NSC): handle nil endpoint slices during sync&quot;
 </code></pre>
-<p>Now that the <code>feature_x</code> branch has been pushed to your GitHub repository, you can initiate the pull request.</p>
+<h3 id="stay-up-to-date">Stay Up-to-Date</h3>
+<p>Before pushing, rebase on the latest upstream:</p>
+<pre><code class="language-bash">git checkout master
+git fetch upstream
+git rebase upstream/master
+git checkout feature_x
+git rebase master
+</code></pre>
+<h3 id="submit-a-pull-request">Submit a Pull Request</h3>
+<p>Push your branch and open a pull request:</p>
+<pre><code class="language-bash">git push origin feature_x
+</code></pre>
+<p>Then open a pull request from your fork on GitHub against the <code>master</code> branch.</p>
 
 
 

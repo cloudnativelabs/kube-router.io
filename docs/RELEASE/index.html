@@ -860,6 +860,9 @@ git push origin &lt;tag_name&gt;
 <p>Note: your remote for the main kube-router repo may not be origin, please correct it to whatever you have called the
 official kube-router remote.</p>
 <h2 id="new-patch-release">New patch release</h2>
+<p>kube-router generally only supports the current major.minor release. Patch releases for previous minor versions are
+only created in exceptional cases. See the <a href="../upgrading/#supported-versions">supported versions</a> policy for
+details.</p>
 <ul>
 <li>Change to the <code>master</code> branch</li>
 <li>Use <code>git log</code> to identify which commits you want to bring to the new patch release</li>
@@ -882,7 +885,7 @@ official kube-router remote.</p>
 <li>Follow above instructions and ensure that the tag contains <code>-rc</code>. Don't mark the pre-release as a proper release.</li>
 </ul>
 <h2 id="release-build-process">Release Build Process</h2>
-<p>Once the tag is pushed to GitHub GitHub Actions will be triggered and several things will happen:</p>
+<p>Once the tag is pushed to GitHub, GitHub Actions will be triggered and several things will happen:</p>
 <ul>
 <li>kube-router will be linted</li>
 <li>kube-router will be tested</li>

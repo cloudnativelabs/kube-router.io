@@ -630,6 +630,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#supported-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Versions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#general-guidelines" class="md-nav__link">
     <span class="md-ellipsis">
       General Guidelines
@@ -677,45 +686,6 @@
       Breaking Change Version History
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Breaking Change Version History">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#v00x-alpha-versions" class="md-nav__link">
-    <span class="md-ellipsis">
-      v0.0.X alpha versions
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v0017-aka-v010-rc1" class="md-nav__link">
-    <span class="md-ellipsis">
-      v0.0.17 (aka v0.1.0-rc1)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="v0.0.17 (aka v0.1.0-rc1)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#v0017-upgrade-procedure" class="md-nav__link">
-    <span class="md-ellipsis">
-      v0.0.17 Upgrade Procedure
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -917,6 +887,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#supported-versions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supported Versions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#general-guidelines" class="md-nav__link">
     <span class="md-ellipsis">
       General Guidelines
@@ -965,45 +944,6 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Breaking Change Version History">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#v00x-alpha-versions" class="md-nav__link">
-    <span class="md-ellipsis">
-      v0.0.X alpha versions
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#v0017-aka-v010-rc1" class="md-nav__link">
-    <span class="md-ellipsis">
-      v0.0.17 (aka v0.1.0-rc1)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="v0.0.17 (aka v0.1.0-rc1)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#v0017-upgrade-procedure" class="md-nav__link">
-    <span class="md-ellipsis">
-      v0.0.17 Upgrade Procedure
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
     </ul>
@@ -1031,6 +971,12 @@ breaking changes, which will be detailed here and in the release notes.</p>
 <p>First check if you are upgrading across one of the
 <a href="#breaking-change-version-history">breaking change versions</a>. If so, read the
 relevant section(s) first before proceeding with the general guidelines below.</p>
+<h2 id="supported-versions">Supported Versions</h2>
+<p>kube-router generally only supports the current major.minor release. Bug fixes
+and security patches are applied to the latest release, and users are encouraged
+to stay up to date. In exceptional cases, we may backport critical fixes to the
+previous minor release on request. If you need a backport, please open an issue
+describing the bug and why upgrading to the latest release is not feasible.</p>
 <h2 id="general-guidelines">General Guidelines</h2>
 <h3 id="image-pull-policy">Image Pull Policy</h3>
 <p>Here we will assume that you have the following in your kube-router DaemonSet:</p>
@@ -1071,10 +1017,10 @@ kubectl -n kube-system logs &quot;${TEST_POD}&quot;
 <h3 id="with-rolling-updates">With Rolling Updates</h3>
 <p>After updating a DaemonSet template, old DaemonSet pods will be killed, and new DaemonSet pods will be created
 automatically, in a controlled fashion</p>
-<p>If your global BGP peers supports gracefull restarts and has it enabled,
+<p>If your global BGP peers supports graceful restarts and has it enabled,
 <a href="https://kubernetes.io/docs/tasks/manage-daemon/update-daemon-set/">rolling updates</a> can be used to upgrade your
 kube-router DaemonSet without network downtime.</p>
-<p>To enable gracefull BGP restart kube-router must be started with <code>--bgp-graceful-restart</code></p>
+<p>To enable graceful BGP restart kube-router must be started with <code>--bgp-graceful-restart</code></p>
 <p>To enable rolling updates on your kube-router DaemonSet modify it and add a updateStrategy</p>
 <pre><code class="language-yaml">updateStrategy:
   type: RollingUpdate
@@ -1083,7 +1029,7 @@ kube-router DaemonSet without network downtime.</p>
 </code></pre>
 <p>maxUnavailable controls the maximum number of pods to simultaneously upgrade</p>
 <p>Starting from the top of the DaemonSet, it should look like this after you are done editing</p>
-<pre><code class="language-yaml">apiVersion: extensions/v1beta1
+<pre><code class="language-yaml">apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   labels:
@@ -1099,59 +1045,9 @@ spec:
 ...
 </code></pre>
 <h2 id="breaking-change-version-history">Breaking Change Version History</h2>
-<p>This section covers version specific upgrade instructions.</p>
-<h3 id="v00x-alpha-versions">v0.0.X alpha versions</h3>
-<p>While kube-router is in its alpha stage changes can be expected to be rapid.
-Therefor we cannot guarantee that a new alpha release will not break previous
-expected behavior.</p>
-<h3 id="v0017-aka-v010-rc1">v0.0.17 (aka v0.1.0-rc1)</h3>
-<p>This version brings changes to hairpin and BGP peering CLI/annotation
-configuration flags/keys.</p>
-<p>CLI flag changes:</p>
-<ul>
-<li>OLD: <code>--peer-router</code> -&gt; NEW: <code>--peer-router-ips</code></li>
-<li>OLD: <code>--peer-asn</code> -&gt; NEW: <code>--peer-router-asns</code></li>
-</ul>
-<p>CLI flag additions:</p>
-<ul>
-<li>NEW: <code>--peer-router-passwords</code></li>
-</ul>
-<p>Annotation key changes:</p>
-<ul>
-<li>OLD: <code>kube-router.io/hairpin-mode=</code> -&gt; NEW:
-  <code>kube-router.io/service.hairpin=</code></li>
-<li>OLD: <code>net.kuberouter.nodeasn=</code> -&gt; NEW: <code>kube-router.io/node.asn=</code></li>
-<li>OLD: <code>net.kuberouter.node.bgppeer.address=</code> -&gt; NEW: <code>kube-router.io/peer.ips</code></li>
-<li>OLD: <code>net.kuberouter.node.bgppeer.asn</code> -&gt; NEW: <code>kube-router.io/peer.asns</code></li>
-</ul>
-<p>Annotation key additions:</p>
-<ul>
-<li>NEW: <code>kube-router.io/peer.passwords</code></li>
-</ul>
-<h4 id="v0017-upgrade-procedure">v0.0.17 Upgrade Procedure</h4>
-<p>For CLI flag changes, all that is required is to change the flag names you use
-above to their new names at the same time that you change the image version.</p>
-<pre><code class="language-sh">kubectl -n kube-system edit ds kube-router
-</code></pre>
-<p>For Annotations, the recommended approach is to copy all the values of
-your current annotations into new annotations with the updated keys.</p>
-<p>You can get a quick look at all your service and node annotations with these
-commands:</p>
-<pre><code class="language-sh">kubectl describe services --all-namespaces |grep -E '^(Name:|Annotations:)'
-kubectl describe nodes |grep -E '^(Name:|Annotations:)'
-</code></pre>
-<p>For example if you have a service annotation to enable Hairpin mode like:</p>
-<pre><code class="language-sh">Name:              hairpin-service
-Annotations:       kube-router.io/hairpin-mode=
-</code></pre>
-<p>You will then want to make a new annotation with the new key:</p>
-<pre><code class="language-sh">kubectl annotate service hairpin-service &quot;kube-router.io/service.hairpin=&quot;
-</code></pre>
-<p>Once all new annotations are created, proceed with the
-<a href="#general-guidelines">General Guidelines</a>. After the upgrades tested and
-complete, you can delete the old annotations.</p>
-<pre><code class="language-sh">kubectl annotate service hairpin-service &quot;kube-router.io/hairpin-mode-&quot;
-</code></pre>
+<p>Breaking changes for major and minor releases (v1.0+) are documented in the
+<a href="https://github.com/cloudnativelabs/kube-router/releases">GitHub release notes</a> for each version. Please review the
+release notes for any versions you are upgrading across.</p>
 
 
 

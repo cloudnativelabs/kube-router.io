@@ -877,30 +877,30 @@
                   
 
 
-<h1 id="see-kube-router-in-action">See Kube-router in action</h1>
+<h1 id="see-kube-router-in-action">See kube-router in action</h1>
 <h2 id="network-services-controller">Network Services Controller</h2>
 <p>Network services controller is responsible for reading the services and endpoints information from Kubernetes API server
 and configure IPVS on each cluster node accordingly.</p>
 <p>Please <a href="https://cloudnativelabs.github.io/post/2017-05-10-kube-network-service-proxy/">read our blog</a> for design details
-and pros and cons compared to iptables based Kube-proxy</p>
-<p>Demo of Kube-router's IPVS based Kubernetes network service proxy</p>
+and pros and cons compared to iptables based kube-proxy</p>
+<p>Demo of kube-router's IPVS based Kubernetes network service proxy</p>
 <p><a href="https://asciinema.org/a/120312"><img alt="asciicast" src="https://asciinema.org/a/120312.png" /></a></p>
 <p>Features:</p>
 <ul>
 <li>round robin load balancing</li>
 <li>client IP based session persistence</li>
-<li>source IP is preserved if service controller is used in conjuction with network routes controller (kube-router with
+<li>source IP is preserved if service controller is used in conjunction with network routes controller (kube-router with
   --run-router flag)</li>
 <li>option to explicitly masquerade (SNAT) with --masquerade-all flag</li>
 </ul>
 <h2 id="network-policy-controller">Network Policy Controller</h2>
 <p>Network policy controller is responsible for reading the namespace, network policy and pods information from Kubernetes
 API server and configure iptables accordingly to provide ingress filter to the pods.</p>
-<p>Kube-router supports the networking.k8s.io/NetworkPolicy API or network policy V1/GA
-<a href="https://github.com/kubernetes/kubernetes/pull/39164#issue-197243974">semantics</a> and also network policy beta semantics.</p>
+<p>kube-router supports the networking.k8s.io/NetworkPolicy API or network policy V1/GA
+<a href="https://github.com/kubernetes/kubernetes/pull/39164#issue-197243974">semantics</a>.</p>
 <p>Please <a href="https://cloudnativelabs.github.io/post/2017-05-1-kube-network-policies/">read our blog</a> for design details of
 Network Policy controller</p>
-<p>Demo of Kube-router's iptables based implementaton of network policies</p>
+<p>Demo of kube-router's iptables based implementation of network policies</p>
 <p><a href="https://asciinema.org/a/120735"><img alt="asciicast" src="https://asciinema.org/a/120735.png" /></a></p>
 <h2 id="network-routes-controller">Network Routes Controller</h2>
 <p>Network routes controller is responsible for reading pod CIDR allocated by controller manager to the node, and

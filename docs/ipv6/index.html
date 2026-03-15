@@ -1013,7 +1013,7 @@ kube-router.</p>
 <p>Support for dual-stack in kube-router is feature complete. Release v2.0.0 and above of kube-router has all controllers
 updated for dual-stack compatibility.</p>
 <h2 id="important-notes-known-limitations-etc">Important Notes / Known Limitations / Etc</h2>
-<p>This represents a major release for kube-router and as such, user's should approach deploying this into an established
+<p>This represents a major release for kube-router and as such, users should approach deploying this into an established
 kube-router environment carefully. While there aren't any huge bugs that the maintainers are aware of at this time,
 there are several small breaks in backwards compatibility. We'll try to detail these below as best we can.</p>
 <h3 id="how-to-enable-dual-stack-functionality">How To Enable Dual-Stack Functionality</h3>
@@ -1054,8 +1054,8 @@ previous versions of kube-router.</p>
 <p>While v2.X and above versions of kube-router are IPv6 compatible and advertise both IPv4 and IPv6 addresses, it still
 does this over a single BGP peering. This peering is made from what kube-router considers the node's primary IP address.
 Which is typically the first internal IP address listed in the node's Kubernetes metadata (e.g. <code>kubectl get node</code>)
-unless it is overriden by a <a href="../bgp/#bgp-peer-local-ip-configuration">local-address annotation</a> configuration.</p>
-<p>This address with be either an IPv4 or IPv6 address and kube-router will use this to make the peering. Without
+unless it is overridden by a <a href="../bgp/#bgp-peer-local-ip-configuration">local-address annotation</a> configuration.</p>
+<p>This address will be either an IPv4 or IPv6 address and kube-router will use this to make the peering. Without
 <code>--override-nexthop</code> kube-router does the work to ensure that an IP or subnet is advertised by the matching IP family
 for the IP or subnet. However, with <code>--override-nexthop</code> enabled kube-router doesn't have control over what the next-hop
 for the advertised route will be. Instead the next-hop will be overridden by the IP that is being used to peer with
@@ -1069,12 +1069,12 @@ work correctly. As such, we no longer apply the <code>--override-nexthop</code> 
 kube-router nodes. This is different functionality between version v1.X of kube-router and v2.x.</p>
 <h3 id="kube-routerionodebgpcustomimportreject-can-only-contain-ips-of-a-single-family">kube-router.io/node.bgp.customimportreject Can Only Contain IPs of a Single Family</h3>
 <p>Due to implementation restrictions with GoBGP, the annotation <code>kube-router.io/node.bgp.customimportreject</code>, which allows
-user's to add rules for rejecting specific routes sent to GoBGP, can only accept a single IP family (e.g. IPv4 or IPv6).</p>
+users to add rules for rejecting specific routes sent to GoBGP, can only accept a single IP family (e.g. IPv4 or IPv6).</p>
 <p>Attempting to add IPs of two different families will result in a GoBGP error when it attempts to import BGP policy from
 kube-router.</p>
 <h3 id="ipv6-ipv4-network-policy-ranges-will-only-work-if-that-family-has-been-enabled">IPv6 &amp; IPv4 Network Policy Ranges Will Only Work If That Family Has Been Enabled</h3>
 <p>Network Policy in Kubernetes allows users to specify
-<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.24/#ipblock-v1-networking-k8s-io">IPBlock</a> ranges for
+<a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.32/#ipblock-v1-networking-k8s-io">IPBlock</a> ranges for
 ingress and egress policies. These blocks are string-based network CIDRs and allow the user to specify any ranges that
 they wish in order to allow ingress or egress from network ranges that are not selectable using Kubernetes pod
 selectors.</p>
@@ -1095,7 +1095,7 @@ in their kube-router logs saying that they should change to the new annotation.<
 <code>kube-router.io/pod-cidrs</code> annotation. Since kube-router currently only updates node annotations at start and not as
 they are updated, this is a safe change to make before updating kube-router.</p>
 <p>If neither annotation is specified, kube-router will use the <code>PodCIDRs</code> field of the Kubernetes node spec which is
-populated by the <code>kube-controller-manager</code> as part of it's <code>--allocate-node-cidrs</code> functionality. This should be a sane
+populated by the <code>kube-controller-manager</code> as part of its <code>--allocate-node-cidrs</code> functionality. This should be a sane
 default for most users of kube-router.</p>
 <h3 id="cni-now-accepts-multiple-pod-ranges">CNI Now Accepts Multiple Pod Ranges</h3>
 <p>Now that kube-router supports dual-stack, it also supports multiple ranges in the CNI file. While kube-router will

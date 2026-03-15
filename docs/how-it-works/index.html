@@ -878,11 +878,11 @@
 
 
 <h1 id="theory-of-operation">Theory of Operation</h1>
-<p>Kube-router can be run as an agent or a Pod (via DaemonSet) on each node and
+<p>kube-router can be run as an agent or a Pod (via DaemonSet) on each node and
 leverages standard Linux technologies <strong>iptables, ipvs/lvs, ipset, iproute2</strong></p>
 <h2 id="service-proxy-and-load-balancing">Service Proxy And Load Balancing</h2>
 <p>Blog: <a href="https://cloudnativelabs.github.io/post/2017-05-10-kube-network-service-proxy/">Kubernetes network services proxy with IPVS/LVS</a></p>
-<p>Kube-router uses IPVS/LVS technology built in Linux to provide L4 load
+<p>kube-router uses IPVS/LVS technology built in Linux to provide L4 load
 balancing. Each <strong>ClusterIP</strong>, <strong>NodePort</strong>, and <strong>LoadBalancer</strong> Kubernetes
 Service type is configured as an IPVS virtual service. Each Service Endpoint is
 configured as real server to the virtual service.  The standard <strong>ipvsadm</strong> tool
@@ -893,21 +893,21 @@ can be used to verify the configuration and monitor the active connections.</p>
 <p><img alt="Kube services" src="../img/ep.jpg" /></p>
 <p>and how they got mapped to the IPVS by kube-router:</p>
 <p><img alt="IPVS configuration" src="../img/ipvs1.jpg" /></p>
-<p>Kube-router watches the Kubernetes API server to get updates on the
+<p>kube-router watches the Kubernetes API server to get updates on the
 Services/Endpoints and automatically syncs the IPVS configuration to reflect the
-desired state of Services. Kube-router uses IPVS masquerading mode and uses
-round robin scheduling currently. Source pod IP is preserved so that appropriate
-network policies can be applied.</p>
+desired state of Services. kube-router uses IPVS masquerading mode with round robin scheduling by default
+(other scheduling algorithms such as least connection, source hashing, and maglev hashing are also supported
+via service annotations). Source pod IP is preserved so that appropriate network policies can be applied.</p>
 <h2 id="pod-ingress-firewall">Pod Ingress Firewall</h2>
 <p>Blog: <a href="https://cloudnativelabs.github.io/post/2017-05-1-kube-network-policies/">Enforcing Kubernetes network policies with iptables</a></p>
-<p>Kube-router provides an implementation of Kubernetes Network Policies through
-the use of iptables, ipset and conntrack.  All the Pods in a Namespace with
-'DefaultDeny' ingress isolation policy has ingress blocked. Only traffic that
+<p>kube-router provides an implementation of Kubernetes Network Policies through
+the use of iptables, ipset and conntrack. All the Pods in a Namespace selected by a NetworkPolicy that has no
+ingress rules have ingress blocked by default. Only traffic that
 matches whitelist rules specified in the network policies are permitted to reach
 those Pods. The following set of iptables rules and chains in the 'filter' table
 are used to achieve the Network Policies semantics.</p>
 <p>Each Pod running on the Node which needs ingress blocked by default is matched
-in FORWARD and OUTPUT chains of the fliter table and are sent to a pod specific
+in FORWARD and OUTPUT chains of the filter table and are sent to a pod specific
 firewall chain. Below rules are added to match various cases</p>
 <ul>
 <li>Traffic getting switched between the Pods on the same Node through the local
@@ -920,7 +920,7 @@ firewall chain. Below rules are added to match various cases</p>
 <p>Each Pod specific firewall chain has default rule to block the traffic. Rules
 are added to jump traffic to the Network Policy specific policy chains. Rules
 cover only policies that apply to the destination pod ip. A rule is added to
-accept the the established traffic to permit the return traffic.</p>
+accept the established traffic to permit the return traffic.</p>
 <p><img alt="Pod firewall chain" src="../img/podfw.png" /></p>
 <p>Each policy chain has rules expressed through source and destination ipsets. Set
 of pods matching ingress rule in network policy spec forms a source Pod ip
@@ -930,12 +930,12 @@ Policy forms destination Pod ip ipset.</p>
 <p>Finally ipsets are created that are used in forming the rules in the Network
 Policy specific chain</p>
 <p><img alt="ipset" src="../img/ipset.jpg" /></p>
-<p>Kube-router at runtime watches Kubernetes API server for changes in the
+<p>kube-router at runtime watches Kubernetes API server for changes in the
 namespace, network policy and pods and dynamically updates iptables and ipset
-configuration to reflect desired state of ingress firewall for the the pods.</p>
+configuration to reflect desired state of ingress firewall for the pods.</p>
 <h2 id="pod-networking">Pod Networking</h2>
 <p>Blog: <a href="https://cloudnativelabs.github.io/post/2017-05-22-kube-pod-networking">Kubernetes pod networking and beyond with BGP</a></p>
-<p>Kube-router is expected to run on each Node. The subnet of the Node is obtained
+<p>kube-router is expected to run on each Node. The subnet of the Node is obtained
 from the CNI configuration file on the Node or through the Node.PodCidr. Each
 kube-router instance on the Node acts as a BGP router and advertises the Pod
 CIDR assigned to the Node. Each Node peers with rest of the Nodes in the cluster

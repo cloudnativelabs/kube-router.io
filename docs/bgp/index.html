@@ -1214,9 +1214,31 @@
 
 
 <h1 id="configuring-bgp-peers">Configuring BGP Peers</h1>
-<p>When kube-router is used to provide pod-to-pod networking, BGP is used to exchange routes across the nodes. Kube-router
+<p>When kube-router is used to provide pod-to-pod networking, BGP is used to exchange routes across the nodes. kube-router
 provides flexible networking models to support different deployments (public vs private cloud, routable vs non-routable
 pod IPs, service IPs, etc.).</p>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+<ul>
+<li><a href="#peering-within-the-cluster">Peering Within The Cluster</a></li>
+<li><a href="#full-node-to-node-mesh">Full Node-To-Node Mesh</a></li>
+<li><a href="#node-to-node-peering-without-full-mesh">Node-To-Node Peering Without Full Mesh</a></li>
+<li><a href="#route-reflector-setup-without-full-mesh">Route-Reflector setup Without Full Mesh</a></li>
+<li><a href="#peering-outside-the-cluster">Peering Outside The Cluster</a></li>
+<li><a href="#global-external-bgp-peers">Global External BGP Peers</a></li>
+<li><a href="#node-specific-external-bgp-peers">Node Specific External BGP Peers</a></li>
+<li><a href="#as-path-prepending">AS Path Prepending</a></li>
+<li><a href="#bgp-peer-local-ip-configuration">BGP Peer Local IP configuration</a></li>
+<li><a href="#bgp-peer-password-authentication">BGP Peer Password Authentication</a></li>
+<li><a href="#bgp-communities">BGP Communities</a></li>
+<li><a href="#custom-bgp-import-policy-reject">Custom BGP Import Policy Reject</a></li>
+<li><a href="#bgp-listen-address-list">BGP listen address list</a></li>
+<li><a href="#overriding-the-next-hop">Overriding the next hop</a></li>
+<li><a href="#overriding-the-next-hop-and-enable-ipiptunnel">Overriding the next hop and enable IPIP/tunnel</a></li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 <h2 id="peering-within-the-cluster">Peering Within The Cluster</h2>
 <h3 id="full-node-to-node-mesh">Full Node-To-Node Mesh</h3>
 <p>This is the default mode. All nodes in the clusters form iBGP peering relationships with rest of the nodes forming a
@@ -1228,7 +1250,7 @@ iBGP. This mode is suitable in public cloud environments or small cluster deploy
 <p>This model is used to support more than a single AS per cluster to allow for an AS per rack or an AS per node. Nodes in
 the cluster do not form full node-to-node meshes. Users have to explicitly select this mode by specifying
 <code>--nodes-full-mesh=false</code> when launching kube-router. In this mode kube-router expects each node will be configured with
-an ASN number from the node's API object annotations. Kube-router will use the node's <code>kube-router.io/node.asn</code>
+an ASN number from the node's API object annotations. kube-router will use the node's <code>kube-router.io/node.asn</code>
 annotation value as the ASN number for the node.</p>
 <p>Users can annotate node objects with the following command:</p>
 <pre><code class="language-sh">kubectl annotate node &lt;kube-node&gt; &quot;kube-router.io/node.asn=64512&quot;
@@ -1388,7 +1410,7 @@ protecting the node from losing required routes:</p>
 </code></pre>
 <h2 id="bgp-listen-address-list">BGP listen address list</h2>
 <p>By default, the GoBGP server binds on the node IP address. However, in some cases nodes with multiple IP addresses
-desire to bind GoBGP to multiple local addresses. Local IP addresses on which GoGBP should listen on a node can be
+desire to bind GoBGP to multiple local addresses. Local IP addresses on which GoBGP should listen on a node can be
 configured with annotation <code>kube-router.io/bgp-local-addresses</code>.</p>
 <p>Here is sample example to make GoBGP server to listen on multiple IP address:</p>
 <pre><code class="language-shell">kubectl annotate node ip-172-20-46-87.us-west-2.compute.internal &quot;kube-router.io/bgp-local-addresses=172.20.56.25,192.168.1.99&quot;
@@ -1412,7 +1434,7 @@ network.</p>
 <p>This configuration would have the following effects:</p>
 <ul>
 <li><a href="https://github.com/cloudnativelabs/kube-router/blob/master/docs/bgp.md#peering-outside-the-cluster">Peering Outside the Cluster</a>
-  via one of themany means that kube-router makes available</li>
+  via one of the many means that kube-router makes available</li>
 <li>Overriding Next Hop</li>
 <li>Enabling overlays in either full mode or with nodes in different subnets</li>
 </ul>

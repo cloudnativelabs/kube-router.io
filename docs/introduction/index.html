@@ -252,7 +252,7 @@
         <li class="md-nav__item">
   <a href="#what-is-kube-router" class="md-nav__link">
     <span class="md-ellipsis">
-      What is Kube-router
+      What is kube-router
     </span>
   </a>
   
@@ -261,7 +261,7 @@
         <li class="md-nav__item">
   <a href="#why-kube-router" class="md-nav__link">
     <span class="md-ellipsis">
-      Why Kube-router
+      Why kube-router
     </span>
   </a>
   
@@ -827,7 +827,7 @@
         <li class="md-nav__item">
   <a href="#what-is-kube-router" class="md-nav__link">
     <span class="md-ellipsis">
-      What is Kube-router
+      What is kube-router
     </span>
   </a>
   
@@ -836,7 +836,7 @@
         <li class="md-nav__item">
   <a href="#why-kube-router" class="md-nav__link">
     <span class="md-ellipsis">
-      Why Kube-router
+      Why kube-router
     </span>
   </a>
   
@@ -858,11 +858,11 @@
 
 
 <h1 id="introduction">Introduction</h1>
-<p>Welcome to the introduction guide to Kube-router! This guide is the best place to start with Kube-router. We cover what
+<p>Welcome to the introduction guide to kube-router! This guide is the best place to start with kube-router. We cover what
 kube-router is, what problems it can solve, how it compares to existing software, and how you can get started using it.
-If you are familiar with the basics of Kube-router, head over to the next sections that provide a more detailed
+If you are familiar with the basics of kube-router, head over to the next sections that provide a more detailed
 reference of available features.</p>
-<h2 id="what-is-kube-router">What is Kube-router</h2>
+<h2 id="what-is-kube-router">What is kube-router</h2>
 <p>If you are not familiar with Kubernetes networking model it is recommended to familiarize with Kubernetes
 <a href="https://kubernetes.io/docs/concepts/cluster-administration/networking/#kubernetes-model">networking model</a>. So
 essentially Kubernetes expects:</p>
@@ -880,22 +880,22 @@ building block that helps in service discovery and load balancing. A layer-4 ser
 the Kubernetes cluster that provides the load-balancing for the services exposed by the pods.</p>
 <p>Once you have pod-to-pod networking established and have a service proxy that provides load-balancing, you need a way to
 secure your pods. Kubernetes
-<a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">Network Policies</a> provide a specfication to
+<a href="https://kubernetes.io/docs/concepts/services-networking/network-policies/">Network Policies</a> provide a specification to
 secure pods. You need to deploy a solution that implements network policy specification and provides security for your
 pods.</p>
 <p>If you utilize <a href="https://kubernetes.io/docs/concepts/services-networking/service/#loadbalancer">LoadBalancer</a> services in
 your cluster, then you need to deploy a solution that will allocate and manage your LoadBalancer IP address space.</p>
-<p>Kube-router is a turnkey solution for Kubernetes networking that provides all the above essential functionality in one
+<p>kube-router is a turnkey solution for Kubernetes networking that provides all the above essential functionality in one
 single elegant package.</p>
-<h2 id="why-kube-router">Why Kube-router</h2>
+<h2 id="why-kube-router">Why kube-router</h2>
 <p>Network is hard. You have multiple Kubernetes networking solutions that provide pod networking or network policy etc.
-But when you deploy indiviudal solution for each functionality you end up with lot of moving parts making it difficult
+But when you deploy an individual solution for each functionality you end up with a lot of moving parts making it difficult
 to operate and troubleshoot.</p>
-<p>Kube-router is a lean yet powerful all-in-one alternative to several network components used in typical Kubernetes
+<p>kube-router is a lean yet powerful all-in-one alternative to several network components used in typical Kubernetes
 clusters. All this from a single DaemonSet/Binary. It doesn't get any easier.</p>
-<p>Kube-router also uses best-of-breed low-level kernel solutions for maximum performance. Kube-router uses IPVS/LVS for
+<p>kube-router also uses best-of-breed low-level kernel solutions for maximum performance. kube-router uses IPVS/LVS for
 service proxying and provides direct routing between the nodes.</p>
-<p>Kube-router also provides very unique and advanced functionalities like DSR (Direct Server Return), ECMP based network
+<p>kube-router also provides very unique and advanced functionalities like DSR (Direct Server Return), ECMP based network
 load balancing etc.</p>
 
 

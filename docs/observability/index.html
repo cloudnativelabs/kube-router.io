@@ -863,7 +863,7 @@
 <h2 id="observing-kube-router-with-metrics">Observing kube-router with Metrics</h2>
 <p>See <a href="../metrics/">metrics documentation</a> for more information</p>
 <h2 id="observing-dropped-traffic-due-to-network-policy-enforcements">Observing dropped traffic due to network policy enforcements</h2>
-<p>Traffic that gets rejected due to network policy enforcements gets logged by kube-route using iptables NFLOG target
+<p>Traffic that gets rejected due to network policy enforcements gets logged by kube-router using iptables NFLOG target
 under the group 100. Simplest way to observe the dropped packets by kube-router is by running tcpdump on <code>nflog:100</code>
 interface for e.g. <code>tcpdump -i nflog:100 -n</code>. You can also configure ulogd to monitor dropped packets in desired output
 format. Please see <a href="https://kb.gtkc.net/iptables-with-ulogd-quick-howto/">the official ulogd documentation</a> for an

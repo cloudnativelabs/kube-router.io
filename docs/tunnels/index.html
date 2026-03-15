@@ -933,7 +933,7 @@ with iproute2.</p>
 <h2 id="scenarios-for-tunnelling">Scenarios for Tunnelling</h2>
 <p>By default, kube-router enables the option <code>--enable-overlay</code> which will perform overlay networking based upon the
 <code>--overlay-type</code> setting (by default set to <code>subnet</code>). So out of the box, kube-router will create a tunnel for
-pod-to-pod traffic any time it comes across a kube-router enabled node that is not within the subnet of it's primary
+pod-to-pod traffic any time it comes across a kube-router enabled node that is not within the subnet of its primary
 interface.</p>
 <p>Additionally, if <code>--overlay-type</code> is set to <code>full</code> kube-router will create an tunnel for all pod-to-pod traffic and
 attempt to transit any pod traffic in the cluster via an IPIP overlay network between nodes.</p>
@@ -962,7 +962,7 @@ scenarios, kube-router would be rolled out gracefully one pod or host to the nex
 mismatches between the encapsulation support between the two nodes as invariably one node will have an upgraded
 kube-router and another node may have a previous deployment.</p>
 <p>When this happens, they will have conflicting encapsulation setup on their tunnels and traffic will not be able to be
-sent between the two nodes until they are using a consistent encapsulation protocal between them.</p>
+sent between the two nodes until they are using a consistent encapsulation protocol between them.</p>
 <p>Once all nodes have upgraded with the destination configuration, pod-to-pod traffic patterns should return to normal.</p>
 
 
