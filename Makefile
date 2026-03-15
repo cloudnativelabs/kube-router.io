@@ -27,21 +27,27 @@ checkout_kube_router_docs:
 	# Fix links to daemonset files
 	sed -i 's;\.\./daemonset;manifests;' kube-router/docs/dsr.md
 	sed -i 's;\.\./daemonset;manifests;' kube-router/docs/user-guide.md
+	# remove manifests index reference as we don't have an index page built for manifests
+	sed -i 's;\[daemonsets\](manifests/);manifests;g' kube-router/docs/user-guide.md
+	sed -i 's;\.\./daemonset;manifests;' kube-router/docs/user-guide.md
 	sed -i 's;\.\./daemonset;manifests;' kube-router/docs/RELEASE.md
 	# Fix links to CONTRIBUTING.md
-	sed -i 's;/CONTRIBUTING.md;/docs/CONTRIBUTING/;' kube-router/docs/index.md
-	sed -i 's;/CONTRIBUTING.md;/docs/CONTRIBUTING/;' kube-router/docs/developing.md
+	sed -i 's;/CONTRIBUTING.md;CONTRIBUTING.md;' kube-router/docs/index.md
+	sed -i 's;/CONTRIBUTING.md;CONTRIBUTING.md;' kube-router/docs/developing.md
 	# Fix links to RELEASE.md
-	sed -i 's;/RELEASE.md;/docs/RELEASE/;' kube-router/docs/developing.md
+	sed -i 's;/RELEASE\.md;RELEASE.md;g' kube-router/docs/developing.md
 	# Fix links to Makefile
 	sed -i 's;\[Makefile\](/Makefile);Makefile;' kube-router/docs/developing.md
 	sed -i 's;\[Makefile\](Makefile);Makefile;' kube-router/docs/RELEASE.md
 	# Fix links inside CONTRIBUTING.md
-	sed -i 's;/developing.md;/developing/;' kube-router/docs/CONTRIBUTING.md
-	sed -i 's;/user-guide.md;/user-guide/;' kube-router/docs/CONTRIBUTING.md
+	sed -i 's;/docs/;;g' kube-router/docs/CONTRIBUTING.md
+	# Fix links inside RELEASE.md
+	sed -i 's;docs/;;g' kube-router/docs/RELEASE.md
+	# Fix absolute links
 	# Remove links to workflows, go mods, and Daemonset folder from RELEASE.md
-	sed -i 's;\[Github Workflow\](\.github/workflow/ci.yml);Github Workflow;' kube-router/docs/RELEASE.md
+	sed -i 's;\[Github Workflow\](\.github/workflows/ci.yml);Github Workflow;' kube-router/docs/RELEASE.md
 	sed -i 's;\[go.mod\](go.mod);go.mod;' kube-router/docs/RELEASE.md
+	sed -i 's;\[go.mod\](/go.mod);go.mod;' kube-router/docs/developing.md
 	sed -i 's;\[Daemonset\](daemonset);daemonset;' kube-router/docs/RELEASE.md
 	rm -rf $(kube_checkout)
 
