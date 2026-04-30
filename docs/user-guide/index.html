@@ -633,6 +633,57 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#external-ip-and-loadbalancer-ip-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      External IP and LoadBalancer IP Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="External IP and LoadBalancer IP Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It Works
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shared-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shared Flags
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#controlling-service-locality-or-traffic-policies" class="md-nav__link">
     <span class="md-ellipsis">
       Controlling Service Locality or Traffic Policies
@@ -1251,6 +1302,57 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#external-ip-and-loadbalancer-ip-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      External IP and LoadBalancer IP Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="External IP and LoadBalancer IP Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How It Works
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuration-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration Examples
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#upgrading" class="md-nav__link">
+    <span class="md-ellipsis">
+      Upgrading
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shared-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shared Flags
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#controlling-service-locality-or-traffic-policies" class="md-nav__link">
     <span class="md-ellipsis">
       Controlling Service Locality or Traffic Policies
@@ -1384,6 +1486,11 @@
 <li><a href="#containerd">containerd</a></li>
 <li><a href="#trying-kube-router-as-alternative-to-kube-proxy">trying kube-router as alternative to kube-proxy</a></li>
 <li><a href="#advertising-ips">Advertising IPs</a></li>
+<li><a href="#external-ip-and-loadbalancer-ip-validation">External IP and LoadBalancer IP Validation</a></li>
+<li><a href="#how-it-works">How It Works</a></li>
+<li><a href="#configuration-examples">Configuration Examples</a></li>
+<li><a href="#upgrading">Upgrading</a></li>
+<li><a href="#shared-flags">Shared Flags</a></li>
 <li><a href="#controlling-service-locality-or-traffic-policies">Controlling Service Locality or Traffic Policies</a></li>
 <li><a href="#hairpin-mode">Hairpin Mode</a></li>
 <li><a href="#hairpin-mode-example">Hairpin Mode Example</a></li>
@@ -1462,6 +1569,7 @@ pod on each node through daemonset.</p>
       --enable-pod-egress                             SNAT traffic from Pods to destinations outside the cluster. (default true)
       --enable-pprof                                  Enables pprof for debugging performance and memory leak issues.
       --excluded-cidrs strings                        Excluded CIDRs are used to exclude IPVS rules from deletion.
+      --gobgp-admin-address string                    Address for GoBGP server. Used in combination with gobgp-admin-port to expose GoBGP for administrative purposes. Setting this to empty string will default the address to 127.0.0.1. (default &quot;127.0.0.1&quot;)
       --gobgp-admin-port uint16                       Port to connect to GoBGP for administrative purposes. Setting this to 0 will disable the GoBGP gRPC server. (default 50051)
       --hairpin-mode                                  Add iptables rules for every Service Endpoint to support hairpin traffic.
       --health-port uint16                            Health check port, 0 = Disabled (default 20244)
@@ -1475,7 +1583,7 @@ pod on each node through daemonset.</p>
       --ipvs-sync-period duration                     The delay between ipvs config synchronizations (e.g. '5s', '1m', '2h22m'). Must be greater than 0. (default 5m0s)
       --kubeconfig string                             Path to kubeconfig file with authorization information (the master location is set by the master flag).
       --loadbalancer-default-class                    Handle loadbalancer services without a class (default true)
-      --loadbalancer-ip-range strings                 CIDR values from which loadbalancer services addresses are assigned (can be specified multiple times)
+      --loadbalancer-ip-range strings                 CIDR values from which loadbalancer services addresses are assigned (can be specified multiple times). Also used by the proxy module to validate loadBalancerIPs when --strict-external-ip-validation is enabled.
       --loadbalancer-sync-period duration             The delay between checking for missed services (e.g. '5s', '1m'). Must be greater than 0. (default 1m0s)
       --masquerade-all                                SNAT all traffic to cluster IP/node port.
       --master string                                 The address of the Kubernetes API server (overrides any value in kubeconfig).
@@ -1502,11 +1610,12 @@ pod on each node through daemonset.</p>
       --run-service-proxy                             Enables Service Proxy -- sets up IPVS for Kubernetes Services. (default true)
       --runtime-endpoint string                       Path to CRI compatible container runtime socket (used for DSR mode). Currently known working with containerd.
       --service-cluster-ip-range strings              CIDR values from which service cluster IPs are assigned (can be specified up to 2 times) (default [10.96.0.0/12])
-      --service-external-ip-range strings             Specify external IP CIDRs that are used for inter-cluster communication (can be specified multiple times)
+      --service-external-ip-range strings             Specify external IP CIDRs that are used for inter-cluster communication (can be specified multiple times). Also used by the proxy module to validate externalIPs when --strict-external-ip-validation is enabled.
       --service-node-port-range string                NodePort range specified with either a hyphen or colon (default &quot;30000-32767&quot;)
       --service-tcp-timeout duration                  Specify TCP timeout for IPVS services in standard duration syntax (e.g. '5s', '1m'), default 0s preserves default system value (default: 0s)
       --service-tcpfin-timeout duration               Specify TCP FIN timeout for IPVS services in standard duration syntax (e.g. '5s', '1m'), default 0s preserves default system value (default: 0s)
       --service-udp-timeout duration                  Specify UDP timeout for IPVS services in standard duration syntax (e.g. '5s', '1m'), default 0s preserves default system value (default: 0s)
+      --strict-external-ip-validation                 When enabled, the proxy module validates externalIPs and loadBalancerIPs against configured CIDR ranges (--service-external-ip-range and --loadbalancer-ip-range). When strict mode is enabled and no range is configured, all externalIPs / loadBalancerIPs are rejected (default-deny). Disable this flag to restore previous behavior of accepting all IPs without validation. (default true)
   -v, --v string                                      log level for V logs (default &quot;0&quot;)
   -V, --version                                       Print version information.
 </code></pre>
@@ -1623,6 +1732,62 @@ advertising IPs.</p>
 <p>Advertising LoadBalancer IPs works by inspecting the services <code>status.loadBalancer.ingress</code> IPs that are set by external
 LoadBalancers like for example MetalLb. This has been successfully tested together with
 <a href="https://github.com/google/metallb">MetalLB</a> in ARP mode.</p>
+<p><strong>Note:</strong> When <code>--strict-external-ip-validation</code> is enabled (the default), externalIPs and loadBalancerIPs must pass
+validation against configured CIDR ranges before they are programmed into IPVS. IPs that are rejected by the proxy
+module will not be advertised. See <a href="#external-ip-and-loadbalancer-ip-validation">External IP and LoadBalancer IP Validation</a>
+for details.</p>
+<h2 id="external-ip-and-loadbalancer-ip-validation">External IP and LoadBalancer IP Validation</h2>
+<p>Starting with v2.8.0, the service proxy (Network Services Controller) validates <code>externalIPs</code> and
+<code>loadBalancerIPs</code> before programming them into IPVS. This is controlled by the <code>--strict-external-ip-validation</code> flag,
+which defaults to <code>true</code>.</p>
+<p><strong>This is a breaking change.</strong> Previously, all externalIPs and loadBalancerIPs were accepted unconditionally. Now they
+are validated against configured CIDR ranges.</p>
+<h3 id="how-it-works">How It Works</h3>
+<p>When <code>--strict-external-ip-validation=true</code> (the default):</p>
+<ul>
+<li><strong>externalIPs</strong> are validated against <code>--service-external-ip-range</code> CIDRs</li>
+<li><strong>loadBalancerIPs</strong> are validated against <code>--loadbalancer-ip-range</code> CIDRs</li>
+<li><strong>ClusterIP conflict detection</strong>: externalIPs that fall within <code>--service-cluster-ip-range</code> are always rejected to
+  prevent denial-of-service against cluster services</li>
+<li><strong>Default-deny</strong>: if no range is configured for a given IP type, <strong>all</strong> IPs of that type are rejected</li>
+</ul>
+<p>When <code>--strict-external-ip-validation=false</code>:</p>
+<ul>
+<li>All externalIPs and loadBalancerIPs are accepted without validation (previous behavior)</li>
+</ul>
+<h3 id="configuration-examples">Configuration Examples</h3>
+<p>Allow specific externalIP and loadBalancerIP ranges:</p>
+<pre><code class="language-sh">kube-router \
+  --run-service-proxy=true \
+  --service-external-ip-range=198.51.100.0/24 \
+  --service-external-ip-range=203.0.113.0/24 \
+  --loadbalancer-ip-range=10.255.0.0/16
+</code></pre>
+<p>Disable validation to restore previous behavior:</p>
+<pre><code class="language-sh">kube-router \
+  --run-service-proxy=true \
+  --strict-external-ip-validation=false
+</code></pre>
+<h3 id="upgrading">Upgrading</h3>
+<p>If you are upgrading from a version without this feature and you use externalIPs or LoadBalancer services, you must
+either:</p>
+<ol>
+<li><strong>Configure the appropriate CIDR ranges</strong> before upgrading by adding <code>--service-external-ip-range</code> and/or
+   <code>--loadbalancer-ip-range</code> flags to your kube-router arguments</li>
+<li><strong>Disable strict validation</strong> by adding <code>--strict-external-ip-validation=false</code> to your kube-router arguments</li>
+</ol>
+<p>If you do neither, all externalIPs and loadBalancerIPs will be rejected after the upgrade (default-deny behavior).</p>
+<p>See <a href="../upgrading/">Upgrading kube-router</a> for more details.</p>
+<h3 id="shared-flags">Shared Flags</h3>
+<p>The <code>--service-external-ip-range</code> and <code>--loadbalancer-ip-range</code> flags serve multiple purposes:</p>
+<ul>
+<li><code>--service-external-ip-range</code> is used by the <strong>network policy controller</strong> for firewall rules and by the
+  <strong>proxy module</strong> for externalIP validation</li>
+<li><code>--loadbalancer-ip-range</code> is used by the <strong>load balancer allocator</strong> for IPAM and by the <strong>proxy module</strong> for
+  loadBalancerIP validation</li>
+</ul>
+<p>If you were already using these flags for other controllers, the proxy module will automatically benefit from the same
+configuration.</p>
 <h2 id="controlling-service-locality-or-traffic-policies">Controlling Service Locality or Traffic Policies</h2>
 <p>Service availability both externally and locally (within the cluster) can be controlled via the Kubernetes standard
 <a href="https://kubernetes.io/docs/reference/networking/virtual-ips/#traffic-policies">Traffic Policies</a> and via the custom

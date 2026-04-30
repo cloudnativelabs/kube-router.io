@@ -945,7 +945,11 @@ When DSR is enabled kube-router will use LVS's tunneling mode to achieve this (m
 <ul>
 <li>ClusterIP type service has an externalIP set on it or is a LoadBalancer type service</li>
 <li>kube-router has been started with <code>--service-external-ip-range</code> configured at least once. This option can be
-  specified multiple times for multiple ranges. The external IPs or LoadBalancer IPs must be included in these ranges.</li>
+  specified multiple times for multiple ranges. The external IPs must be included in these ranges. For LoadBalancer
+  IPs, <code>--loadbalancer-ip-range</code> must also be configured.</li>
+<li>With <code>--strict-external-ip-validation</code> enabled (the default), these same ranges are used by the proxy module to
+  validate IPs before programming them into IPVS. If you already have <code>--service-external-ip-range</code> and
+  <code>--loadbalancer-ip-range</code> configured for DSR, no additional configuration is needed.</li>
 <li>kube-router must be run in service proxy mode with <code>--run-service-proxy</code> (this option is defaulted to <code>true</code> if left
   unspecified)</li>
 <li>If you are advertising the service outside the cluster <code>--advertise-external-ip</code> must be set</li>
@@ -970,6 +974,9 @@ When DSR is enabled kube-router will use LVS's tunneling mode to achieve this (m
 <h2 id="things-to-lookout-for">Things To Lookout For</h2>
 <ul>
 <li>In the current implementation, <strong>DSR will only be available to the external IPs or LoadBalancer IPs</strong></li>
+<li>When <code>--strict-external-ip-validation</code> is enabled (the default), externalIPs and loadBalancerIPs must pass validation
+  against configured CIDR ranges before they can be programmed into IPVS for DSR. Ensure your DSR service IPs are
+  covered by <code>--service-external-ip-range</code> and/or <code>--loadbalancer-ip-range</code>.</li>
 <li><strong>The current implementation does not support port remapping.</strong> So you need to use same port and target port for the
   service.</li>
 <li>In order for DSR to work correctly, an <code>ipip</code> tunnel to the pod is used. This reduces the

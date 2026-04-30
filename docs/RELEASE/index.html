@@ -763,6 +763,16 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#new-majorminor-release" class="md-nav__link">
+    <span class="md-ellipsis">
+      New major/minor release
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New major/minor release">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#preparing-for-the-release" class="md-nav__link">
     <span class="md-ellipsis">
       Preparing for the release
@@ -770,13 +780,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#new-majorminor-release" class="md-nav__link">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-release" class="md-nav__link">
     <span class="md-ellipsis">
-      New major/minor release
+      Creating the Release
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -832,24 +847,45 @@
 
 
 <h1 id="process-for-creating-a-kube-router-release">Process for creating a kube-router release</h1>
-<h2 id="preparing-for-the-release">Preparing for the release</h2>
-<ul>
-<li>Ensure that the Golang release used is still supported. Definition happens currently in
-  Github Workflow and Makefile.</li>
-<li>Ensure that the Alpine version used in container builds is still supported. Definition happens currently in
-  Github Workflow and Makefile.</li>
-<li>Ensure that Golang dependencies are updated.
-  <code>go list -mod=mod -u -m -f '{{.}}{{if .Indirect}} IAMINDIRECT{{end}}' all | grep -v IAMINDIRECT</code> lists possible
-  updates.</li>
-<li>Ensure that the GoBGP version is updated. See <a href="https://github.com/osrg/gobgp/releases">upstream</a> and GoBGP definition
-  in Makefile and go.mod.</li>
-<li>Ensure that the Kubernetes object definitions do not contain deprecated object types. Definition currently is in
-  kube-router's daemonset folder.</li>
-<li>Ensure GitHub actions are updated:</li>
-</ul>
-<pre><code class="language-sh">dependabot update github_actions cloudnativelabs/kube-router
-</code></pre>
 <h2 id="new-majorminor-release">New major/minor release</h2>
+<h3 id="preparing-for-the-release">Preparing for the release</h3>
+<p>Run the following command from the project root:</p>
+<pre><code class="language-sh">make prep-release
+</code></pre>
+<p>This single command will:</p>
+<ol>
+<li><strong>Update all dependencies</strong> — Docker base image tags (golang, alpine, golangci-lint, etc.),
+   tool versions (GoBGP, GoReleaser, CNI plugins, etc.), and GitHub Action SHA pins are all
+   fetched from their upstream sources and pinned to their latest stable versions. Version
+   constraints in <code>build/dependency-updater/versions.lock.yaml</code> control which major/minor
+   boundaries are respected (e.g. golang stays on <code>~1.25.x</code>).</li>
+<li><strong>Run all standard checks</strong> — doctoc, lint, tests, binary build, and container image build
+   are run in sequence against the updated dependency set.</li>
+</ol>
+<p>After <code>prep-release</code> completes, review and commit the changes. Use <code>git add --patch</code> (<code>-p</code>) to
+stage each dependency update as a separate commit, which keeps the history readable and makes it
+easy to bisect or revert individual updates:</p>
+<pre><code class="language-sh">git diff
+git add -p
+</code></pre>
+<p>For each hunk, press <code>y</code> to stage it or <code>n</code> to skip it. Commit after each logical group of
+changes (e.g. one commit per tool or image updated). Follow the conventional commit format:</p>
+<pre><code class="language-sh">git commit -m &quot;build(deps): bump golang from 1.25.6-alpine3.23 to 1.25.7-alpine3.23&quot;
+git add -p
+git commit -m &quot;build(deps): bump actions/checkout from v6.0.1 to v6.0.2&quot;
+# ... and so on for each dependency
+</code></pre>
+<p>Then proceed to tag the release as described below.</p>
+<p>If you only want to preview what would change without applying it, run:</p>
+<pre><code class="language-sh">make update-deps-dry
+</code></pre>
+<p><strong>Updating Go module dependencies</strong> (separate from the above) — to check for available updates
+to Go module dependencies in <code>go.mod</code> / <code>go.sum</code>:</p>
+<pre><code class="language-sh">go list -mod=mod -u -m -f '{{.}}{{if .Indirect}} IAMINDIRECT{{end}}' all | grep -v IAMINDIRECT
+</code></pre>
+<p><strong>Checking Kubernetes manifests</strong> — ensure that the Kubernetes object definitions in the
+<a href="daemonset">daemonset</a> folder do not use deprecated API types before tagging a release.</p>
+<h3 id="creating-the-release">Creating the Release</h3>
 <ul>
 <li>Create a branch named v$MAJOR.$MINOR from the default branch (currently: master)</li>
 <li>Create a new tag with the release tag v$MAJOR.$MINOR.0</li>
@@ -866,8 +902,9 @@ details.</p>
 <ul>
 <li>Change to the <code>master</code> branch</li>
 <li>Use <code>git log</code> to identify which commits you want to bring to the new patch release</li>
-<li>Change to the major/minor release branch that was created for this release</li>
+<li>Change to the major/minor release branch that was created for this release (e.g. <code>git checkout v2.8</code> if that is the branch for the most recent release)</li>
 <li>Cherry-Pick the changes from the <code>master</code> branch into the release branch</li>
+<li>Run <code>make</code> to ensure after cherry-picking that your changes are linted and pass tests</li>
 <li>Create a new tag from the v$MAJOR.$MINOR release branch with the release tag v$MAJOR.$MINOR.$PATCH</li>
 </ul>
 <p>Example:</p>
@@ -905,7 +942,7 @@ official kube-router remote.</p>
 <li>Find the draft release</li>
 <li>Consistent Changelog Syntax can be retrieved by running the following Git command:</li>
 </ul>
-<pre><code class="language-sh">git log --format='* %h - %s `&lt;%an&gt;`' &lt;tag&gt;..&lt;tag&gt;
+<pre><code class="language-sh">git log --format='* %h - %s `&lt;%an&gt;`' --cherry-pick --right-only &lt;tag&gt;...&lt;tag&gt;
 </code></pre>
 <ul>
 <li>Announce the release in <a href="https://app.slack.com/client/T09NY5SBT/C8DCQGTSB">#kube-router</a> on Kubernetes Slack.</li>

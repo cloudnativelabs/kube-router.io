@@ -895,9 +895,12 @@ can be used to verify the configuration and monitor the active connections.</p>
 <p><img alt="IPVS configuration" src="../img/ipvs1.jpg" /></p>
 <p>kube-router watches the Kubernetes API server to get updates on the
 Services/Endpoints and automatically syncs the IPVS configuration to reflect the
-desired state of Services. kube-router uses IPVS masquerading mode with round robin scheduling by default
+desired state of Services.</p>
+<p>kube-router uses IPVS masquerading mode with round robin scheduling by default
 (other scheduling algorithms such as least connection, source hashing, and maglev hashing are also supported
 via service annotations). Source pod IP is preserved so that appropriate network policies can be applied.</p>
+<p>When <code>--strict-external-ip-validation</code> is enabled (the default), externalIPs and loadBalancerIPs are validated
+against configured CIDR ranges before being programmed into IPVS.</p>
 <h2 id="pod-ingress-firewall">Pod Ingress Firewall</h2>
 <p>Blog: <a href="https://cloudnativelabs.github.io/post/2017-05-1-kube-network-policies/">Enforcing Kubernetes network policies with iptables</a></p>
 <p>kube-router provides an implementation of Kubernetes Network Policies through

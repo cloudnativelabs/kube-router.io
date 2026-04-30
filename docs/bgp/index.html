@@ -568,6 +568,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#gobgp-admin-grpc-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      GoBGP Admin gRPC Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GoBGP Admin gRPC Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoring-pre-290-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restoring pre-2.9.0 behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overriding-the-next-hop" class="md-nav__link">
     <span class="md-ellipsis">
       Overriding the next hop
@@ -1181,6 +1205,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#gobgp-admin-grpc-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      GoBGP Admin gRPC Server
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="GoBGP Admin gRPC Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#restoring-pre-290-behavior" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restoring pre-2.9.0 behavior
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#overriding-the-next-hop" class="md-nav__link">
     <span class="md-ellipsis">
       Overriding the next hop
@@ -1234,6 +1282,8 @@ pod IPs, service IPs, etc.).</p>
 <li><a href="#bgp-communities">BGP Communities</a></li>
 <li><a href="#custom-bgp-import-policy-reject">Custom BGP Import Policy Reject</a></li>
 <li><a href="#bgp-listen-address-list">BGP listen address list</a></li>
+<li><a href="#gobgp-admin-grpc-server">GoBGP Admin gRPC Server</a></li>
+<li><a href="#restoring-pre-290-behavior">Restoring pre-2.9.0 behavior</a></li>
 <li><a href="#overriding-the-next-hop">Overriding the next hop</a></li>
 <li><a href="#overriding-the-next-hop-and-enable-ipiptunnel">Overriding the next hop and enable IPIP/tunnel</a></li>
 </ul>
@@ -1415,6 +1465,31 @@ configured with annotation <code>kube-router.io/bgp-local-addresses</code>.</p>
 <p>Here is sample example to make GoBGP server to listen on multiple IP address:</p>
 <pre><code class="language-shell">kubectl annotate node ip-172-20-46-87.us-west-2.compute.internal &quot;kube-router.io/bgp-local-addresses=172.20.56.25,192.168.1.99&quot;
 </code></pre>
+<h2 id="gobgp-admin-grpc-server">GoBGP Admin gRPC Server</h2>
+<p>Starting in kube-router version &gt;=2.9.0, the gRPC admin server, if enabled, binds to <code>127.0.0.1</code> by default. This
+change was made to address a security vulnerability — in previous versions, the admin server
+bound to the node's primary IP address, exposing the GoBGP gRPC API to the cluster without authentication. While this
+allowed easy remote debugging of the BGP state from other nodes in the cluster, it also permitted unauthenticated
+remote access to the GoBGP control plane.</p>
+<h3 id="restoring-pre-290-behavior">Restoring pre-2.9.0 behavior</h3>
+<p>To bind the GoBGP admin server to the node's primary IP as in versions &lt;=2.8.1,
+use the Kubernetes downward API to pass the
+node's IP as an environment variable, then reference it in the <code>--gobgp-admin-address</code> flag:</p>
+<pre><code class="language-yaml">spec:
+  template:
+    spec:
+      containers:
+        - name: kube-router
+          image: docker.io/cloudnativelabs/kube-router
+          args:
+            - --gobgp-admin-address=$(NODE_IP)
+          env:
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+</code></pre>
+<p>Since kube-router DaemonSets run with <code>hostNetwork: true</code>, <code>status.podIP</code> would also work for the downward API.</p>
 <h2 id="overriding-the-next-hop">Overriding the next hop</h2>
 <p>By default, kube-router populates the GoBGP RIB with node IP as next hop for the advertised pod CIDRs and service VIPs.
 While this works for most cases, overriding the next hop for the advertised routes is necessary when node has multiple
